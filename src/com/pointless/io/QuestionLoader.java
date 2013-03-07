@@ -14,6 +14,18 @@ import org.jdom2.input.SAXBuilder;
 
 import com.pointless.quiz.*;
 
+/**
+ * 
+ * This class is to minimize the amount of work to implement the quiz.
+ * 
+ * 
+ * @author Won Lee
+ * 
+ * 0800 07/03, Won Lee:	2 hours to get elements from xml file.
+ * 						=> Not capable of taking image right now.
+ * 
+ *
+ */
 public class QuestionLoader {
 
 	public static List<Quiz> load(File file){
@@ -81,8 +93,8 @@ public class QuestionLoader {
 		if(!element.getName().equals("Quiz")){
 			throw new Exception("This is not Quiz Element");
 		}
-		String title = element.getChildText("Title");
-		String desc = element.getChildText("Description");
+		String title = element.getChildTextTrim("Title");
+		String desc = element.getChildTextTrim("Description");
 		List<Answer> ansList = answerElementTraverser(element.getChild("Answers").getChildren());
 		
 		System.out.println(title+desc+ansList.size());
@@ -110,11 +122,15 @@ public class QuestionLoader {
 	private static List<Answer> answerElementTraverser(List<Element> elements){
 		List<Answer> list = new ArrayList<Answer>();
 		for(Element element: elements){
-			String phrase = element.getChildText("Phrase");
+			String phrase = element.getChildTextTrim("Phrase");
 			int score = Integer.valueOf(element.getChildText("point").trim());
 			list.add(new Answer(phrase, score));
 			System.out.println(phrase+score);
 		}
 		return list;
+	}
+	
+	private static void getImage(File file){
+		
 	}
 }
