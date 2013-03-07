@@ -22,10 +22,16 @@ public class QuestionLoader {
 		if(file.isDirectory()){
 	    	File[] files = file.listFiles(new MyFilenameFilter(true,null,null));
 	    	for(File fl: files){
-	    		File[] fls = file.listFiles(new MyFilenameFilter(true, "quiz", ".xml"));
-	    		if(fls.length == 1){
+	    		System.out.println("File: "+fl.getName());
+	    		File[] fls = fl.listFiles();
+	    		//File[] fls = fl.listFiles(new MyFilenameFilter(true, "quiz", ".xml"));
+	    		for(File f: fls){
 	    			try {
-						quizes.addAll(readXML(fls[0]));
+	    				System.out.println(f.getName());
+	    				if(f.getName().equals("quiz.xml")){
+	    					readXML(f);
+	    					//quizes.addAll(readXML(fls[0]));
+	    				}
 					} catch (JDOMException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -55,7 +61,8 @@ public class QuestionLoader {
 		List<Element> children = doc.getRootElement().getChildren();
 		for(Element element: children){
 			try{
-				quizes.add(quizElementTraverser(element));
+				quizElementTraverser(element);
+				//quizes.add(quizElementTraverser(element));
 			}catch (Exception e){
 				e.printStackTrace();
 			}
@@ -77,6 +84,8 @@ public class QuestionLoader {
 		String title = element.getChildText("Title");
 		String desc = element.getChildText("Description");
 		List<Answer> ansList = answerElementTraverser(element.getChild("Answers").getChildren());
+		
+		System.out.println(title+desc+ansList.size());
 		
 		Quiz quiz = null;
 		switch(type){
@@ -102,8 +111,9 @@ public class QuestionLoader {
 		List<Answer> list = new ArrayList<Answer>();
 		for(Element element: elements){
 			String phrase = element.getChildText("Phrase");
-			int score = Integer.valueOf(element.getChildText("point"));
+			int score = Integer.valueOf(element.getChildText("point").trim());
 			list.add(new Answer(phrase, score));
+			System.out.println(phrase+score);
 		}
 		return list;
 	}
