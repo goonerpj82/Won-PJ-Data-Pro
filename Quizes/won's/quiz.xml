@@ -1,5 +1,6 @@
 <Quiz_Head>
-	<Quiz QuizType="OutOfEight">
+	<!-- template
+	<Quiz QuizType="OutOfEight"> (type has to be OutOfEight, ImageQuiz, TypeIt or lll)
 		<Title>
 			Quiz Title
 		</Title>
@@ -12,11 +13,12 @@
 					Answer Phrase
 				</Phrase>
 				<point>
-					50 <!--The point for this answer-->
+					point (Integer!!)
 				</point>
 			</ans1>
 		</Answers>
 	</Quiz>
+	-->
 	
 	<Quiz QuizType="OutOfEight">
 		<Title>

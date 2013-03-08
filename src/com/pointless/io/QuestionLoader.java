@@ -101,15 +101,21 @@ public class QuestionLoader {
 		
 		Quiz quiz = null;
 		switch(type){
-		case OutOfEight: quiz = null;
-		break;
-		case ImageQuiz: quiz = null;
-		break;
-		case TypeAnswer: quiz = null;
-		break;
-		case Other: quiz = null;
-		break;
-		default: throw new Exception("Invalid Quiztype");
+		case OutOfEight: 
+			quiz = null;
+			break;
+		case ImageQuiz: 
+			String imgPath = element.getChildTextTrim("Image");
+			quiz = null;
+			break;
+		case TypeAnswer: 
+			quiz = null;
+			break;
+		case Other:
+			quiz = null;
+			break;
+		default:
+			throw new Exception("Invalid Quiztype");
 		}
 		return quiz;
 	}
