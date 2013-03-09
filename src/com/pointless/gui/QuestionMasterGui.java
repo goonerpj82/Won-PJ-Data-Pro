@@ -8,12 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.pointless.chat.Chat;
-import com.pointless.chat.ChatListener;
 
-public class PlayerGui extends JFrame {
-	
-	private PlayerAnswerListener paListener;
-	private ChatListener chatListener;
+public class QuestionMasterGui extends JFrame {
 
 	private JPanel contentPane;
 
@@ -24,7 +20,7 @@ public class PlayerGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PlayerGui frame = new PlayerGui();
+					QuestionMasterGui frame = new QuestionMasterGui();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +32,7 @@ public class PlayerGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PlayerGui() {
+	public QuestionMasterGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -45,21 +41,8 @@ public class PlayerGui extends JFrame {
 		setContentPane(contentPane);
 	}
 	
-	private void playerAnswered(){
-		if(paListener != null){
-			//paListener;
-		}
-	}
-	public void addPlayerAnswerListener(PlayerAnswerListener paListener){
-		this.paListener = paListener;
+	private void verifyChat(Chat chat){
+		
 	}
 
-	private void sendChat(Chat chat){
-		if(chatListener != null){
-			chatListener.sendChat(chat);
-		}
-	}
-	public void addChatListener(ChatListener chatListener){
-		this.chatListener = chatListener;
-	}
 }

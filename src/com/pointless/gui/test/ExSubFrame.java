@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class ExSubFrame extends JFrame {
 
@@ -18,6 +19,8 @@ public class ExSubFrame extends JFrame {
 	private JTextField textField;
 	private JTextPane textPane;
 	private ChatListener chatLi;
+	private JPanel panel;
+	private JLabel label;
 
 	/**
 	 * Create the frame.
@@ -41,6 +44,12 @@ public class ExSubFrame extends JFrame {
 		
 		textPane = new JTextPane();
 		contentPane.add(textPane, BorderLayout.CENTER);
+		
+		panel = new JPanel();
+		contentPane.add(panel, BorderLayout.EAST);
+		
+		label = new JLabel("123");
+		panel.add(label);
 	}
 	
 	public void newText(String st){
@@ -61,5 +70,11 @@ public class ExSubFrame extends JFrame {
 		if(chatLi != null){
 			chatLi.sendText(chat);
 		}
+	}
+	
+	public void eastPane(JPanel pane){
+		panel.removeAll();
+		panel.add(pane);
+		this.revalidate();
 	}
 }

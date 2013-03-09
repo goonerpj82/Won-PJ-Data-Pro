@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -12,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.util.HashMap;
 
 import javax.swing.JTextPane;
+import javax.swing.JLayeredPane;
+import javax.swing.JProgressBar;
 
 public class SubFrameSizeChangeTest extends JFrame {
 
@@ -19,6 +22,9 @@ public class SubFrameSizeChangeTest extends JFrame {
 	private ExSubFrame subFrame1;
 	private ExSubFrame subFrame2;
 	private JTextPane textPane;
+	private int count = 1;
+	private JProgressBar progressBar;
+	private int percent = 0;
 
 	/**
 	 * Launch the application.
@@ -65,8 +71,44 @@ public class SubFrameSizeChangeTest extends JFrame {
 		});
 		contentPane.add(btnSmaller, BorderLayout.EAST);
 		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				NewPane pane1 = new NewPane(""+(count++));
+				subFrame2.eastPane(pane1);
+				percent += 20;
+				if(percent > 0 && percent <= 100){
+					progressBar.setVisible(true);
+					progressBar.setValue(percent);
+				}else{
+					progressBar.setVisible(false);
+					percent = 0;
+				}
+			}
+		});
+		contentPane.add(btnAdd, BorderLayout.SOUTH);
+		
+		JLayeredPane layeredPane = new JLayeredPane();
+		contentPane.add(layeredPane, BorderLayout.CENTER);
+		
 		textPane = new JTextPane();
-		contentPane.add(textPane, BorderLayout.CENTER);
+		textPane.setBounds(0, 0, 294, 218);
+		layeredPane.add(textPane);
+		
+		progressBar = new JProgressBar();
+		layeredPane.setLayer(progressBar, 1);
+		progressBar.setBounds(40, 72, 146, 14);
+		layeredPane.add(progressBar);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("New button Clicked");
+			}
+		});
+		layeredPane.setLayer(btnNewButton, 1);
+		btnNewButton.setBounds(125, 127, 89, 23);
+		layeredPane.add(btnNewButton);
 		
 		subFrame1 = new ExSubFrame();
 		subFrame1.addChatListener(new ChatListener(){
@@ -94,5 +136,4 @@ public class SubFrameSizeChangeTest extends JFrame {
 		subFrame2.setVisible(true);		
 		HashMap<String,String> stst = new HashMap<String,String>();
 	}
-
 }
