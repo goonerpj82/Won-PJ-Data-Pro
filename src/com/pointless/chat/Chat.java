@@ -2,13 +2,27 @@ package com.pointless.chat;
 
 import com.pointless.comp.Player;
 
+/**
+ * This class the structure of Chat.
+ * @author Won Lee
+ *
+ */
 public class Chat {
+	private boolean toAll;
 	private Player source;
 	private Player destination;
 	private String message;
 
-	public Chat(Player source, Player destination, String message) {
+	/**
+	 * 
+	 * @param source player instance
+	 * @param destination player instance
+	 * @param message 
+	 * @param toAll true for sending message to all players
+	 */
+	public Chat(Player source, Player destination, String message, boolean toAll) {
 		super();
+		this.toAll = toAll;
 		this.source = source;
 		this.destination = destination;
 		this.message = message;
@@ -56,4 +70,18 @@ public class Chat {
 		this.message = message;
 	}
 
+	/**
+	 * @return the toAll
+	 */
+	public boolean isToAll() {
+		return toAll;
+	}
+
+	/**
+	 * @param toAll the toAll to set
+	 */
+	public void setToAll(boolean toAll) {
+		this.toAll = toAll;
+	}
+	
 }
