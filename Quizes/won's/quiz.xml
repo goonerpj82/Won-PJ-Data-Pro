@@ -1,12 +1,15 @@
 <Quiz_Head>
 	<!-- template
-	<Quiz QuizType="OutOfEight"> (type has to be OutOfEight, ImageQuiz, TypeIt or lll)
+	<Quiz QuizType="OutOfSeven"> (type has to be OutOfSeven, ImageQuiz, TypeIt or lll)
 		<Title>
 			Quiz Title
 		</Title>
 		<Description>
 			Quiz Sentences
 		</Description>
+		<Category>
+			General Knowledge
+		</Category>
 		<Answers>
 			<ans1>
 				<Phrase>
@@ -17,17 +20,72 @@
 				</point>
 			</ans1>
 		</Answers>
+		<Image>
+			The format of Image is not defined yet.
+			This Element is only for ImageQuiz.
+		</Image>
 	</Quiz>
 	-->
 	
-	<Quiz QuizType="OutOfEight">
+	<Quiz QuizType="OutOfSeven">
 		<Title>
 			Quiz 1 2 3
 		</Title>
 		<Description>
 			This is how
 		</Description>
+		<Category>
+			General Knowledge
+		</Category>
 		<Answers>
+			<ans>
+				<Phrase>
+					You are
+				</Phrase>
+				<point>
+					50
+				</point>
+			</ans>
+			<ans>
+				<Phrase>
+					You are
+				</Phrase>
+				<point>
+					50
+				</point>
+			</ans>
+			<ans>
+				<Phrase>
+					You are
+				</Phrase>
+				<point>
+					50
+				</point>
+			</ans>
+			<ans>
+				<Phrase>
+					You are
+				</Phrase>
+				<point>
+					50
+				</point>
+			</ans>
+			<ans>
+				<Phrase>
+					You are
+				</Phrase>
+				<point>
+					50
+				</point>
+			</ans>
+			<ans>
+				<Phrase>
+					You are
+				</Phrase>
+				<point>
+					50
+				</point>
+			</ans>
 			<ans>
 				<Phrase>
 					You are

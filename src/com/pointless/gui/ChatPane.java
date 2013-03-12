@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import com.pointless.chat.Chat;
 import com.pointless.chat.ChatListener;
 import com.pointless.comp.Player;
+import com.pointless.comp.Team;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -12,6 +13,10 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.swing.ScrollPaneConstants;
 
 /**
@@ -27,10 +32,15 @@ public class ChatPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public ChatPane() {
+	public ChatPane(List<Team> teams) {
 		setLayout(null);
 		
-		JComboBox destBox = new JComboBox();
+		List<Player> players = new ArrayList<Player>();
+		for(Team team: teams){
+			players.addAll(team.getPlayers());
+		}
+		Collections.sort(players);
+		JComboBox destBox = new JComboBox(players.toArray());
 		destBox.setBounds(5, 125, 70, 20);
 		add(destBox);
 		
@@ -62,7 +72,7 @@ public class ChatPane extends JPanel {
 	
 	private void sendChat(String message){
 		if(chatListener != null){
-			chatListener.sendChat(null, message, false);
+			chatListener.chatEvent(null, message, false);
 		}
 	}
 	public void addChatListener(ChatListener chatListener){
@@ -70,7 +80,7 @@ public class ChatPane extends JPanel {
 	}
 	
 	public void receiveMessage(Chat chat){
-		String show = "From: " + chat.getSource() + "... " + chat.getMessage()+"\n";
+		String show = "From: " + chat.getSource().getName() + "... " + chat.getMessage()+"\n";
 		String existText = messageDisplay.getText();
 		int length = existText.length();
 		if(length > 1000){

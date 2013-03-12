@@ -25,6 +25,7 @@ public class SubFrameSizeChangeTest extends JFrame {
 	private int count = 1;
 	private JProgressBar progressBar;
 	private int percent = 0;
+	private JLabel lblHere;
 
 	/**
 	 * Launch the application.
@@ -84,6 +85,12 @@ public class SubFrameSizeChangeTest extends JFrame {
 					progressBar.setVisible(false);
 					percent = 0;
 				}
+				if(lblHere.getText().length()>10){
+					lblHere.setText("");
+				}else{
+					lblHere.setText(lblHere.getText()+".");
+				}
+					
 			}
 		});
 		contentPane.add(btnAdd, BorderLayout.SOUTH);
@@ -109,6 +116,11 @@ public class SubFrameSizeChangeTest extends JFrame {
 		layeredPane.setLayer(btnNewButton, 1);
 		btnNewButton.setBounds(125, 127, 89, 23);
 		layeredPane.add(btnNewButton);
+		
+		lblHere = new JLabel("here");
+		layeredPane.setLayer(lblHere, 1);
+		lblHere.setBounds(40, 165, 46, 14);
+		layeredPane.add(lblHere);
 		
 		subFrame1 = new ExSubFrame();
 		subFrame1.addChatListener(new ChatListener(){

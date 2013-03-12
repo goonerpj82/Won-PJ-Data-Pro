@@ -3,13 +3,19 @@ package com.pointless.quiz;
 import java.util.List;
 
 public abstract class Quiz implements Comparable{
+	protected String title;
 	protected String description;
+	protected String category;
 	protected List<Answer> answers;
 	protected QuizType quiztype;
 	
 
-	public Quiz(String description) {
+	public Quiz(String title, String description, String category, List<Answer> answers) {
 		// TODO Auto-generated constructor stub
+		this.title = title;
+		this.description = description;
+		this.category = category;
+		this.answers = answers;
 	}
 
 	/**

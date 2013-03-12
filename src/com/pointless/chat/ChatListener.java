@@ -11,8 +11,8 @@ import com.pointless.comp.Player;
  */
 public interface ChatListener extends EventListener {
 	
-	public void sendChat(Chat chat);
+	public void chatEvent(Chat chat);
 
-	public void sendChat(Player dest, String message, boolean toAll);
+	public void chatEvent(Player dest, String message, boolean toAll);
 	
 }

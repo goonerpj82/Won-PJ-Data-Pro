@@ -41,8 +41,7 @@ public class QuestionLoader {
 	    			try {
 	    				System.out.println(f.getName());
 	    				if(f.getName().equals("quiz.xml")){
-	    					readXML(f);
-	    					//quizes.addAll(readXML(fls[0]));
+	    					quizes.addAll(readXML(f));
 	    				}
 					} catch (JDOMException e) {
 						// TODO Auto-generated catch block
@@ -67,18 +66,19 @@ public class QuestionLoader {
 	 * @throws IOException
 	 */
 	private static List<Quiz> readXML(File file) throws JDOMException, IOException{
-		List<Quiz> quizes = null;
+		List<Quiz> quizes = new ArrayList<Quiz>();
 		SAXBuilder builder = new SAXBuilder(false);
 		Document doc = builder.build(file);
 		List<Element> children = doc.getRootElement().getChildren();
 		for(Element element: children){
 			try{
-				quizElementTraverser(element);
+				quizes.add(quizElementTraverser(element));
 				//quizes.add(quizElementTraverser(element));
 			}catch (Exception e){
 				e.printStackTrace();
 			}
 		}
+		System.out.println(quizes.getClass().toString());
 		return quizes;
 	}
 	
@@ -95,14 +95,16 @@ public class QuestionLoader {
 		}
 		String title = element.getChildTextTrim("Title");
 		String desc = element.getChildTextTrim("Description");
+		String category = element.getChildTextTrim("Category");
 		List<Answer> ansList = answerElementTraverser(element.getChild("Answers").getChildren());
 		
 		System.out.println(title+desc+ansList.size());
 		
 		Quiz quiz = null;
 		switch(type){
-		case OutOfEight: 
-			quiz = null;
+		case OutOfSeven: 
+			quiz = new OutOfSeven(title, desc, category, ansList);
+			System.out.println("outOfSeven Created");
 			break;
 		case ImageQuiz: 
 			String imgPath = element.getChildTextTrim("Image");
@@ -133,6 +135,7 @@ public class QuestionLoader {
 			list.add(new Answer(phrase, score));
 			System.out.println(phrase+score);
 		}
+		Collections.shuffle(list);
 		return list;
 	}
 	

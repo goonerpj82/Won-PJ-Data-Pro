@@ -6,6 +6,10 @@ import javax.swing.JPanel;
 
 import com.pointless.comp.Player;
 import com.pointless.comp.Team;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class OtherTeamInfoPane extends JPanel {
 	
@@ -14,8 +18,25 @@ public class OtherTeamInfoPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public OtherTeamInfoPane(List<Team> teams) {
-
+	public OtherTeamInfoPane(List<Team> arg0) {
+		setLayout(null);
+		
+		refresh(arg0);
+	}
+	
+	public void refresh(List<Team> arg0){
+		removeAll();
+		for(int i=0; i<arg0.size(); i++){
+			TeamCell tc1 = new TeamCell(arg0.get(i));
+			tc1.addDestListener(new DestinationClickedListener(){
+				public void destClicked(Player dest) {
+					tellDestClicked(dest);
+				}
+			});
+			tc1.setBounds(0, 36*i+2*i, 144, 40);
+			add(tc1);
+		}
+		revalidate();
 	}
 
 	/**
@@ -24,10 +45,9 @@ public class OtherTeamInfoPane extends JPanel {
 	public void addDestListener(DestinationClickedListener destListener) {
 		this.destListener = destListener;
 	}
-	private void destClicked(Player player){
+	private void tellDestClicked(Player player){
 		if(destListener != null){
 			destListener.destClicked(player);
 		}
 	}
-
 }

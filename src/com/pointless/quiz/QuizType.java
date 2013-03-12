@@ -1,7 +1,7 @@
 package com.pointless.quiz;
 
 public enum QuizType {
-	OutOfEight,
+	OutOfSeven,
 	ImageQuiz,
 	TypeAnswer,
 	Other,

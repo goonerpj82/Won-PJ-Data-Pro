@@ -16,6 +16,7 @@ import com.pointless.chat.ChatFilterType;
 import com.pointless.chat.ChatIsLimitedException;
 import com.pointless.chat.ChatListener;
 import com.pointless.comp.Player;
+import com.pointless.comp.QuestionMaster;
 import com.pointless.comp.Team;
 
 /**
@@ -32,7 +33,7 @@ public class QuestionMasterGui extends JFrame {
 	private ChatFilter chatFilter;
 	private List<PlayerGui> pGuis;
 	private Map<Player,PlayerGui> mapOfPP;
-	//private QuestionMaster qm;
+	private QuestionMaster qm;
 
 	/**
 	 * Launch the application.
@@ -57,7 +58,8 @@ public class QuestionMasterGui extends JFrame {
 		chatFilter = new ChatFilter();
 		pGuis = new ArrayList<PlayerGui>();
 		
-		//qm = new QuestionMaster();
+		qm = new QuestionMaster();
+		System.out.println(qm.getQuizList().size());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -68,13 +70,15 @@ public class QuestionMasterGui extends JFrame {
 	}
 	
 	private void startGame(List<Player> players, List<Team> teams){
+		
+		
 		for(Player player: players){
 			PlayerGui pGui = new PlayerGui(player, teams);
 			pGui.addChatListener(new ChatListener(){
-				public void sendChat(Chat chat) {
+				public void chatEvent(Chat chat) {
 					verifyChat(chat);
 				}
-				public void sendChat(Player dest, String message, boolean toAll) {}
+				public void chatEvent(Player dest, String message, boolean toAll) {}
 			});
 			pGui.addPlayerAnswerListener(new PlayerAnswerListener(){
 				public void playerAnswered() {
