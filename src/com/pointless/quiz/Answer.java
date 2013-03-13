@@ -1,11 +1,15 @@
 package com.pointless.quiz;
 
 public class Answer {
+	//ID will be used when we separate Player and Questionmaster
+	//When they communicate over TCP
+	private static int idBase = 0;
+	private int id;
 	private String phrase;
 	private int point;
 
 	public Answer(String phrase, int point) {
-		// TODO Auto-generated constructor stub
+		id = ++idBase;
 		this.phrase = phrase;
 		this.point = point;
 	}
