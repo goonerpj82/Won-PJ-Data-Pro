@@ -13,6 +13,7 @@ import com.pointless.chat.Chat;
 import com.pointless.chat.ChatListener;
 import com.pointless.comp.Player;
 import com.pointless.comp.Team;
+import com.pointless.quiz.Answer;
 
 import javax.swing.JLayeredPane;
 
@@ -26,11 +27,11 @@ import javax.swing.JLayeredPane;
 public class PlayerGui extends JFrame {
 	
 	private Player player;
-	private PlayerAnswerListener paListener;
 	private ChatListener chatListener;
 	private ChatPane chatPane;
 	private OtherTeamInfoPane otip;
 	private JPanel contentPane;
+	private MainDisplayPane mainDisplayPane;
 
 	/**
 	 * Launch the application.
@@ -54,8 +55,8 @@ public class PlayerGui extends JFrame {
 	public PlayerGui(Player constPlayer, List<Team> teams) {
 		setResizable(false);
 		player = constPlayer;
-		player = new Player(0, "Won Lee");
-		Player playerb = new Player(0, "PJ");
+		player = new Player("Won Lee");
+		Player playerb = new Player("PJ");
 		Team team = new Team(player, playerb);
 		teams = new ArrayList<Team>();
 		teams.add(team);
@@ -86,11 +87,6 @@ public class PlayerGui extends JFrame {
 		
 		chatPane = new ChatPane(teams);
 		chatPane.setBounds(144, 222, 350, 150);
-		layeredPane.add(chatPane);
-		
-		JPanel mainDisplayPane = new JPanel();
-		mainDisplayPane.setBounds(0, 0, 494, 222);
-		layeredPane.add(mainDisplayPane);
 		chatPane.addChatListener(new ChatListener(){
 			public void chatEvent(Chat chat) {}
 			public void chatEvent(Player dest, String message, boolean toAll) {
@@ -99,21 +95,22 @@ public class PlayerGui extends JFrame {
 				passChatToMaster(chat);
 			}
 		});
+		layeredPane.add(chatPane);
+		
+		mainDisplayPane = new MainDisplayPane();
+		mainDisplayPane.setBounds(0, 0, 494, 220);
+		mainDisplayPane.addGuiAnswerListener(new GuiAnswerListener(){
+			public void guiAnswered(Answer guiAnswer) {
+				
+			}
+		});
+		layeredPane.add(mainDisplayPane);
 	}
 	
 	public Player getPlayer(){
 		return player;
 	}
 	
-	private void playerAnswered(){
-		if(paListener != null){
-			//paListener;
-		}
-	}
-	public void addPlayerAnswerListener(PlayerAnswerListener paListener){
-		this.paListener = paListener;
-	}
-
 	private void passChatToMaster(Chat chat){
 		if(chatListener != null){
 			chatListener.chatEvent(chat);

@@ -18,6 +18,7 @@ import com.pointless.chat.ChatListener;
 import com.pointless.comp.Player;
 import com.pointless.comp.QuestionMaster;
 import com.pointless.comp.Team;
+import com.pointless.quiz.Answer;
 
 /**
  * This class hold QuestionMaster instance and get necessary information for PlayerGui from it.
@@ -79,11 +80,6 @@ public class QuestionMasterGui extends JFrame {
 					verifyChat(chat);
 				}
 				public void chatEvent(Player dest, String message, boolean toAll) {}
-			});
-			pGui.addPlayerAnswerListener(new PlayerAnswerListener(){
-				public void playerAnswered() {
-					
-				}
 			});
 			mapOfPP.put(player, pGui);
 			chatFilter.changeDestinationFilter(player, ChatFilterType.Allow);
