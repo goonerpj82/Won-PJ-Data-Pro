@@ -39,7 +39,6 @@ public class ChatPane extends JPanel {
 		for(Team team: teams){
 			players.addAll(team.getPlayers());
 		}
-		Collections.sort(players);
 		JComboBox destBox = new JComboBox(players.toArray());
 		destBox.setBounds(5, 125, 70, 20);
 		add(destBox);

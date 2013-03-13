@@ -3,6 +3,9 @@ package com.pointless.quiz;
 import java.util.List;
 
 public abstract class Quiz implements Comparable{
+	
+	protected static int idBase = 0;
+	protected int id;
 	protected String title;
 	protected String description;
 	protected String category;
@@ -12,6 +15,7 @@ public abstract class Quiz implements Comparable{
 
 	public Quiz(String title, String description, String category, List<Answer> answers) {
 		// TODO Auto-generated constructor stub
+		id = ++idBase;
 		this.title = title;
 		this.description = description;
 		this.category = category;
@@ -23,9 +27,35 @@ public abstract class Quiz implements Comparable{
 	 * @return points according to answer
 	 */
 	public abstract int checkAnswer(Answer answer);
-	
-	
-	
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @return the category
+	 */
+	public String getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	/**
 	 * @return the description
 	 */

@@ -15,7 +15,9 @@ public class Team {
 	public Team(Player player1, Player player2){
 		players = new ArrayList<Player>();
 		players.add(player1);
-		players.add(player2);
+		if(player2 != null){
+			players.add(player2);
+		}
 	}
 
 	/**

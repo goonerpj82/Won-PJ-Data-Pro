@@ -2,7 +2,7 @@ package com.pointless.comp;
 
 import java.io.Serializable;
 
-public class Player implements Serializable, Comparable{
+public class Player implements Serializable{
 	private int id;
 	private String name;
 
@@ -32,12 +32,4 @@ public class Player implements Serializable, Comparable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Override
-	public int compareTo(Object arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
 }
