@@ -8,6 +8,7 @@ public class Player implements Serializable{
 
 	public Player(int id, String name) {
 		// TODO Auto-generated constructor stub
+		//this comment is added from Won Lee
 		this.id=id;
 		this.name = name;
 	}
