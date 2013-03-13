@@ -16,6 +16,8 @@ import com.pointless.comp.Team;
 import com.pointless.quiz.Answer;
 
 import javax.swing.JLayeredPane;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * All necessary information to generate GUi is given by QuestionMasterGui instance.
@@ -27,7 +29,6 @@ import javax.swing.JLayeredPane;
 public class PlayerGui extends JFrame {
 	
 	private Player player;
-	private ChatListener chatListener;
 	private ChatPane chatPane;
 	private OtherTeamInfoPane otip;
 	private JPanel contentPane;
@@ -40,7 +41,7 @@ public class PlayerGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PlayerGui frame = new PlayerGui(null,null);
+					PlayerGui frame = new PlayerGui(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,19 +53,33 @@ public class PlayerGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PlayerGui(Player constPlayer, List<Team> teams) {
+	public PlayerGui(Player constPlayer) {
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent arg0) {
+				System.out.println("Hey");
+				player.closing();
+			}
+		});
+		
 		setResizable(false);
 		player = constPlayer;
-		player = new Player("Won Lee");
+		player.addChatListener(new ChatListener(){
+			public void chatEvent(Chat chat) {
+				chatPane.receiveMessage(chat);
+			}
+			public void chatEvent(Player dest, String message, boolean toAll) {}
+		});
+		
+		//player = new Player("Won Lee");
 		Player playerb = new Player("PJ");
 		Team team = new Team(player, playerb);
-		teams = new ArrayList<Team>();
-		teams.add(team);
-		teams.add(team);
-		teams.add(team);
-		teams.add(team);
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		List<Team> teams = new ArrayList<Team>();
+		teams.add(team);
+		teams.add(team);
+		teams.add(team);
+		teams.add(team);
+
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,7 +107,7 @@ public class PlayerGui extends JFrame {
 			public void chatEvent(Player dest, String message, boolean toAll) {
 				System.out.println("PlayerGui heard ChatEvent");
 				Chat chat = new Chat(player, dest, message, toAll);
-				passChatToMaster(chat);
+				player.passChatToMaster(chat);
 			}
 		});
 		layeredPane.add(chatPane);
@@ -109,15 +124,6 @@ public class PlayerGui extends JFrame {
 	
 	public Player getPlayer(){
 		return player;
-	}
-	
-	private void passChatToMaster(Chat chat){
-		if(chatListener != null){
-			chatListener.chatEvent(chat);
-		}
-	}
-	public void addChatListener(ChatListener chatListener){
-		this.chatListener = chatListener;
 	}
 	
 	public void relayMessage(Chat chat){

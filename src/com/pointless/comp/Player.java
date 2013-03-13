@@ -2,17 +2,20 @@ package com.pointless.comp;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Observable;
 
+import com.pointless.chat.Chat;
+import com.pointless.chat.ChatListener;
 import com.pointless.quiz.Answer;
 import com.pointless.quiz.Quiz;
 
-public class Player implements Serializable{
+public class Player extends Observable implements Serializable{
 	private int id;
 	private String name;
 	private boolean myTurn;
 	private Quiz givenQuiz;
 	private List<Player> otherPlayers;
-	private PlayerAnswerListener paListener;
+	private ChatListener chatListener;
 
 	public Player(String name) {
 		this.name = name;
@@ -80,6 +83,16 @@ public class Player implements Serializable{
 	public List<Player> getOtherPlayers() {
 		return otherPlayers;
 	}
+	
+	public void addChatListener(ChatListener chatListener){
+		this.chatListener = chatListener;
+	}
+	public void receiveChat(Chat chat){
+		System.out.println("Chat is received at Player");
+		if(chatListener != null){
+			chatListener.chatEvent(chat);
+		}
+	}
 
 	/**
 	 * @param otherPlayers the otherPlayers to set
@@ -87,13 +100,24 @@ public class Player implements Serializable{
 	public void setOtherPlayers(List<Player> otherPlayers) {
 		this.otherPlayers = otherPlayers;
 	}
-
-	public void addPlayerAnswerListener(PlayerAnswerListener paListener){
-		this.paListener = paListener;
+	public void answerQuestion(Answer answer){
+		notifyObservers(answer);
 	}
-	public void answer(Answer palyerAnswer){
-		if(paListener != null){
-			paListener.playerAnswered(palyerAnswer);
-		}
+
+	public void passChatToMaster(Chat chat){
+		notifyObservers(chat);
+	}
+	public void closing(){
+		this.notifyObservers("Bye Bye");
+	}
+
+	/* (non-Javadoc)
+	 * @see java.util.Observable#notifyObservers(java.lang.Object)
+	 */
+	@Override
+	public void notifyObservers(Object arg) {
+		System.out.println("Notifying "+arg.toString());
+		setChanged();
+		super.notifyObservers(arg);
 	}
 }

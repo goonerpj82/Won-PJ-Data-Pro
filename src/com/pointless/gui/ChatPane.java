@@ -48,7 +48,6 @@ public class ChatPane extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				JTextField jtf = (JTextField) arg0.getSource();
 				sendChat(jtf.getText());
-				receiveMessage(new Chat(null,null,jtf.getText(),false));
 				jtf.setText("");
 			}
 		});
@@ -70,6 +69,7 @@ public class ChatPane extends JPanel {
 	}
 	
 	private void sendChat(String message){
+		System.out.println("Sending Message from ChatPane");
 		if(chatListener != null){
 			chatListener.chatEvent(null, message, false);
 		}
@@ -79,6 +79,7 @@ public class ChatPane extends JPanel {
 	}
 	
 	public void receiveMessage(Chat chat){
+		System.out.println("Receiving Message at Chat Pane");
 		String show = "From: " + chat.getSource().getName() + "... " + chat.getMessage()+"\n";
 		String existText = messageDisplay.getText();
 		int length = existText.length();
