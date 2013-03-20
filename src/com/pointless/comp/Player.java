@@ -14,7 +14,7 @@ public class Player extends Observable implements Serializable{
 	private String name;
 	private boolean myTurn;
 	private Quiz givenQuiz;
-	private List<Player> otherPlayers;
+	private List<Team> teams;
 	private ChatListener chatListener;
 
 	public Player(String name) {
@@ -80,8 +80,8 @@ public class Player extends Observable implements Serializable{
 	/**
 	 * @return the otherPlayers
 	 */
-	public List<Player> getOtherPlayers() {
-		return otherPlayers;
+	public List<Team> getTeams() {
+		return teams;
 	}
 	
 	public void addChatListener(ChatListener chatListener){
@@ -97,8 +97,8 @@ public class Player extends Observable implements Serializable{
 	/**
 	 * @param otherPlayers the otherPlayers to set
 	 */
-	public void setOtherPlayers(List<Player> otherPlayers) {
-		this.otherPlayers = otherPlayers;
+	public void setOtherPlayers(List<Team> teams) {
+		this.teams = teams;
 	}
 	public void answerQuestion(Answer answer){
 		notifyObservers(answer);

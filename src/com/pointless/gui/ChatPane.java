@@ -28,18 +28,16 @@ public class ChatPane extends JPanel {
 	private ChatListener chatListener;
 	private JTextField messageEntry;
 	private JTextPane messageDisplay;
+	private JComboBox destBox;
 
 	/**
 	 * Create the panel.
+	 * List<Team> teams
 	 */
-	public ChatPane(List<Team> teams) {
+	public ChatPane() {
 		setLayout(null);
 		
-		List<Player> players = new ArrayList<Player>();
-		for(Team team: teams){
-			players.addAll(team.getPlayers());
-		}
-		JComboBox destBox = new JComboBox(players.toArray());
+		destBox = new JComboBox();
 		destBox.setBounds(5, 125, 70, 20);
 		add(destBox);
 		
@@ -91,5 +89,13 @@ public class ChatPane extends JPanel {
 	
 	public void changeDest(Player player){
 		
+	}
+	
+	public void refreshDestBox(List<Team> teams){
+		List<Player> players = new ArrayList<Player>();
+		for(Team team: teams){
+			players.addAll(team.getPlayers());
+		}
+		destBox = new JComboBox(players.toArray());
 	}
 }

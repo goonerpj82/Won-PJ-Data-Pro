@@ -48,6 +48,8 @@ public class Team {
 		this.players = players;
 	}
 	
-	
+	public void addPlayerToTeam(Player player){
+		players.add(player);
+	}
 
 }

@@ -10,17 +10,19 @@ import com.pointless.chat.Chat;
 import com.pointless.chat.ChatFilter;
 import com.pointless.chat.ChatFilterType;
 import com.pointless.chat.ChatIsLimitedException;
+import com.pointless.chat.ChatListener;
 import com.pointless.io.QuestionLoader;
 import com.pointless.quiz.Answer;
 import com.pointless.quiz.Quiz;
 
-public class QuestionMaster implements Observer{
+public class QuestionMaster{
 	private List<Player> players = new ArrayList<Player>();
-	private List<Team> teams;
+	private List<Team> teams = new ArrayList<Team>();
 	private List<Quiz> quizList;
 	private int currentRound;
 	private ChatFilter chatFilter = new ChatFilter();
 	private boolean interrupt = false;
+	private ChatListener chatListener;
 	
 	public QuestionMaster(){
 		quizList = QuestionLoader.load(new File("Quizes"));
@@ -111,8 +113,12 @@ public class QuestionMaster implements Observer{
 	}
 	
 	public void addPlayer(Player player){
-		player.addObserver(this);
 		System.out.println("Ob: "+player.countObservers());
+		player.addObserver(new Observer(){
+			public void update(Observable arg0, Object arg1) {
+				filter(arg0, arg1);
+			}
+		});
 		chatFilter.changeSourceFilter(player, ChatFilterType.Allow);
 		chatFilter.changeDestinationFilter(player, ChatFilterType.Allow);
 		players.add(player);
@@ -124,17 +130,39 @@ public class QuestionMaster implements Observer{
 	public void createTeam(Player player1, Player player2){
 		teams.add(new Team(player1, player2));
 	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
+	
+	public void startGame(){
+		for(Player player: players){
+			teams.add(new Team(player));
+		}
+		for(Player player: players){
+			
+		}
+	}
+	
+	public Player matchPlayerByName(String name){
+		for(Player player: players){
+			if(player.getName().equals(name)){
+				return player;
+			}
+		}
+		return null;
+	}
+	
+	public void filter(Observable arg0, Object arg1) {
 		Player p1 = (Player) arg0;
 		System.out.println("QM heard "+arg1.toString()+" from "+p1.getName());
 		if(arg1 instanceof Chat){
 			Chat chat = (Chat) arg1;
 			try {
-				if(chatFilter.verifyChat(chat)){
+				if(interrupt){
+					verifyChatByGui(chat);
+				}if(chatFilter.verifyChat(chat)){
 					System.out.println("Chat Verified");
-					chat.getSource().receiveChat(chat);
+					//chat.getSource().receiveChat(chat);
+					sendChat(chat.getSource(),chat);
+				}else{
+					
 				}
 			} catch (ChatIsLimitedException e) {
 				e.printStackTrace();
@@ -151,6 +179,19 @@ public class QuestionMaster implements Observer{
 			System.out.println(arg1.toString());
 			players.remove(p1);
 		}
+	}
+	
+	public void addChatListener(ChatListener chatListener){
+		this.chatListener = chatListener;
+	}
+	private void verifyChatByGui(Chat chat){
+		if(chatListener != null){
+			chatListener.chatEvent(chat);
+		}
+	}
+	public void sendChat(Player player, Chat chat){
+		System.out.println("Sending Chat from QuestionMaster");
+		player.receiveChat(chat);
 	}
 
 }

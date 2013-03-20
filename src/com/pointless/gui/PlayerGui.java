@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -62,6 +63,12 @@ public class PlayerGui extends JFrame {
 		});
 		
 		setResizable(false);
+		
+		if(constPlayer == null){
+			String name = JOptionPane.showInputDialog("Enter Player Name");
+			constPlayer = new Player(name);
+		}
+		
 		player = constPlayer;
 		player.addChatListener(new ChatListener(){
 			public void chatEvent(Chat chat) {
@@ -69,38 +76,20 @@ public class PlayerGui extends JFrame {
 			}
 			public void chatEvent(Player dest, String message, boolean toAll) {}
 		});
-		
-		//player = new Player("Won Lee");
-		Player playerb = new Player("PJ");
-		Team team = new Team(player, playerb);
-		
-		List<Team> teams = new ArrayList<Team>();
-		teams.add(team);
-		teams.add(team);
-		teams.add(team);
-		teams.add(team);
 
+		this.setTitle("Player" + player.getName());
+		
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+				
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 494, 372);
 		contentPane.add(layeredPane);
 		
-		otip = new OtherTeamInfoPane(teams);
-		otip.setBounds(0, 222, 145, 150);
-		otip.addDestListener(new DestinationClickedListener(){
-			public void destClicked(Player dest) {
-				chatPane.changeDest(dest);
-				//relayMessage(new Chat(player, player, "Clicked", false));
-			}
-		});
-		layeredPane.add(otip);
-		
-		chatPane = new ChatPane(teams);
+		chatPane = new ChatPane();
 		chatPane.setBounds(144, 222, 350, 150);
 		chatPane.addChatListener(new ChatListener(){
 			public void chatEvent(Chat chat) {}
@@ -111,6 +100,16 @@ public class PlayerGui extends JFrame {
 			}
 		});
 		layeredPane.add(chatPane);
+		
+		otip = new OtherTeamInfoPane();
+		otip.setBounds(0, 222, 145, 150);
+		otip.addDestListener(new DestinationClickedListener(){
+			public void destClicked(Player dest) {
+				chatPane.changeDest(dest);
+				//relayMessage(new Chat(player, player, "Clicked", false));
+			}
+		});
+		layeredPane.add(otip);
 		
 		mainDisplayPane = new MainDisplayPane();
 		mainDisplayPane.setBounds(0, 0, 494, 220);
@@ -127,10 +126,24 @@ public class PlayerGui extends JFrame {
 	}
 	
 	public void relayMessage(Chat chat){
+		System.out.println("Relaying Message at PlayerGui");
 		chatPane.receiveMessage(chat);
 	}
 	
 	public void showNotification(String message){
 		
+	}
+	
+	public void updateTeamInfo(List<Team> teams){
+		Player playerb = new Player("PJ");
+		Team team = new Team(player, playerb);
+		
+		teams = new ArrayList<Team>();
+		teams.add(team);
+		teams.add(team);
+		teams.add(team);
+		teams.add(team);
+		
+		otip.refresh(teams);
 	}
 }

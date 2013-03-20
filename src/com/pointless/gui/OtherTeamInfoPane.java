@@ -18,10 +18,8 @@ public class OtherTeamInfoPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public OtherTeamInfoPane(List<Team> arg0) {
+	public OtherTeamInfoPane() {
 		setLayout(null);
-		
-		refresh(arg0);
 	}
 	
 	public void refresh(List<Team> arg0){

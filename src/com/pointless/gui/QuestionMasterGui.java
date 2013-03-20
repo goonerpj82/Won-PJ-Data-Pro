@@ -23,6 +23,8 @@ import com.pointless.quiz.Answer;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLayeredPane;
+import javax.swing.JTextPane;
 
 /**
  * This class hold QuestionMaster instance and get necessary information for PlayerGui from it.
@@ -38,7 +40,9 @@ public class QuestionMasterGui extends JFrame {
 	private Map<Player,PlayerGui> mapOfPP = new HashMap<Player,PlayerGui>();
 	private QuestionMaster qm = new QuestionMaster();
 	private JTextField txtAddPlayer;
-
+	private JTextField txf_message;
+	private JLayeredPane chatPane;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -60,6 +64,13 @@ public class QuestionMasterGui extends JFrame {
 	 */
 	public QuestionMasterGui() {		
 		
+		qm.addChatListener(new ChatListener(){
+			public void chatEvent(Chat chat) {
+				//verifyChat(chat);
+			}
+			public void chatEvent(Player dest, String message, boolean toAll) {}
+		});
+		
 		System.out.println(qm.getQuizList().size());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +84,9 @@ public class QuestionMasterGui extends JFrame {
 		txtAddPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JTextField txt = (JTextField) arg0.getSource();
-				addPlayer(new Player(txt.getText()));
+				if(qm.matchPlayerByName(txt.getText()) == null){
+					addPlayer(new Player(txt.getText()));
+				}
 				txt.setText("");
 			}
 		});
@@ -81,6 +94,35 @@ public class QuestionMasterGui extends JFrame {
 		txtAddPlayer.setBounds(10, 11, 86, 20);
 		contentPane.add(txtAddPlayer);
 		txtAddPlayer.setColumns(10);
+		
+		/*
+		 * Chat Control Panel
+		 */
+		chatPane = new JLayeredPane();
+		chatPane.setBounds(251, 11, 173, 240);
+		contentPane.add(chatPane);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setBounds(0, 0, 173, 217);
+		chatPane.add(textPane);
+		
+		txf_message = new JTextField();
+		txf_message.addActionListener(new ActionListener() {
+			/**
+			 * Sends Message to All Player, Master to one Player chat will be implemented later
+			 */
+			public void actionPerformed(ActionEvent arg0) {
+				JTextField txf = (JTextField) arg0.getSource();
+				for(Player player: qm.getPlayers()){
+					player.receiveChat(new Chat(new Player("Master"), player, txf.getText(), false));
+				}
+				txf.setText("");
+			}
+		});
+		txf_message.setBounds(0, 220, 173, 20);
+		chatPane.add(txf_message);
+		txf_message.setColumns(10);
 	}
 	
 	private void addPlayer(Player player){
@@ -90,7 +132,16 @@ public class QuestionMasterGui extends JFrame {
 		mapOfPP.put(player, pGui);
 	}
 	
-	private void startGame(List<Player> players, List<Team> teams){
-		
+	private void startGame(){
+		qm.startGame();
+	}
+	
+	private void verifyChat(Chat chat){
+		JPanel verifyPane = new JPanel();
+		JTextPane textPane = new JTextPane();
+		String st = "Chat from " + chat.getSource() + " to " + chat.getDestination() + "\n" +
+				"Message => " + chat.getMessage();
+		textPane.setText(st);
+		verifyPane.add(textPane);
 	}
 }
