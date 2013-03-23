@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.pointless.comp.Player;
-import com.pointless.comp.Team;
+import com.pointless.player.Player;
+import com.pointless.qm.Team;
 
 public class TeamCell extends JPanel {
 	

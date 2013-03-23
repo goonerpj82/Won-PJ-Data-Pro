@@ -3,7 +3,7 @@ package com.pointless.chat;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.pointless.comp.*;
+import com.pointless.player.Player;
 
 public class ChatFilter {
 	private Map<Player, ChatFilterType> sourceFilter;

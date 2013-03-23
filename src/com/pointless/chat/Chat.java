@@ -1,6 +1,6 @@
 package com.pointless.chat;
 
-import com.pointless.comp.Player;
+import com.pointless.player.Player;
 
 /**
  * This class the structure of Chat.

@@ -2,7 +2,7 @@ package com.pointless.gui;
 
 import java.util.EventListener;
 
-import com.pointless.comp.Player;
+import com.pointless.player.Player;
 
 public interface DestinationClickedListener extends EventListener {
 	

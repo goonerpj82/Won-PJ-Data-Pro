@@ -12,8 +12,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.pointless.chat.Chat;
 import com.pointless.chat.ChatListener;
-import com.pointless.comp.Player;
-import com.pointless.comp.Team;
+import com.pointless.player.Player;
+import com.pointless.qm.Team;
 import com.pointless.quiz.Answer;
 
 import javax.swing.JLayeredPane;

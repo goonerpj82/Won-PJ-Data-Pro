@@ -2,7 +2,7 @@ package com.pointless.chat;
 
 import java.util.EventListener;
 
-import com.pointless.comp.Player;
+import com.pointless.player.Player;
 
 /**
  * 2 phases. First sendChat() is for listener in PlayerGui, second one is for listener in ChatPane

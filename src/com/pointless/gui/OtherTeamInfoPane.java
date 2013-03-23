@@ -4,8 +4,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import com.pointless.comp.Player;
-import com.pointless.comp.Team;
+import com.pointless.player.Player;
+import com.pointless.qm.Team;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;

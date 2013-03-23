@@ -4,8 +4,8 @@ import javax.swing.JPanel;
 
 import com.pointless.chat.Chat;
 import com.pointless.chat.ChatListener;
-import com.pointless.comp.Player;
-import com.pointless.comp.Team;
+import com.pointless.player.Player;
+import com.pointless.qm.Team;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
