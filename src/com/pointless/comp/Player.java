@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import com.pointless.chat.Chat;
 import com.pointless.chat.ChatListener;
+import com.pointless.communication.Client;
 import com.pointless.quiz.Answer;
 import com.pointless.quiz.Quiz;
 
@@ -16,6 +17,7 @@ public class Player extends Observable implements Serializable{
 	private Quiz givenQuiz;
 	private List<Team> teams;
 	private ChatListener chatListener;
+	private Client client;
 
 	public Player(String name) {
 		this.name = name;
@@ -110,6 +112,8 @@ public class Player extends Observable implements Serializable{
 	public void closing(){
 		this.notifyObservers("Bye Bye");
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.util.Observable#notifyObservers(java.lang.Object)

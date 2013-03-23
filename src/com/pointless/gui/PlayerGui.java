@@ -77,7 +77,7 @@ public class PlayerGui extends JFrame {
 			public void chatEvent(Player dest, String message, boolean toAll) {}
 		});
 
-		this.setTitle("Player" + player.getName());
+		this.setTitle("Player <" + player.getName() + ">");
 		
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();

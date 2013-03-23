@@ -10,7 +10,6 @@ public class MessageObject implements Serializable{
 	
 	private static int messageIdBase = 0;
 	private int messageId;
-	private InetAddress destAddress;
 	private InetAddress srceAddress;
 	private int srcePort;
 	private String srceName;
@@ -26,17 +25,13 @@ public class MessageObject implements Serializable{
 	}
 	
 	public void setHeader(Socket socket){
-		destAddress = socket.getInetAddress();
 		srceAddress = socket.getLocalAddress();
 		srcePort = socket.getLocalPort();
 	}
-		
-	/**
-	 * @return the destAddress
-	 */
-	public InetAddress getDestAddress() {
-		return destAddress;
+	public String printHeader(){
+		return "" + srceAddress.toString() + ":" + srcePort;
 	}
+		
 	/**
 	 * @return the srceAddress
 	 */
@@ -53,6 +48,6 @@ public class MessageObject implements Serializable{
 	public String toString(){
 		return "This message ID is " + messageId + "\n" +
 				"This message from: " + srceAddress.getHostAddress() + ":" +
-						"" + srcePort + " to " + destAddress.getHostAddress();
+						"" + srcePort;
 	}
 }

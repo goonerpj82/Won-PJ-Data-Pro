@@ -14,6 +14,13 @@ import java.util.List;
 
 import org.omg.CORBA_2_3.portable.OutputStream;
 
+/**
+ * 
+ * @author Won Lee
+ * @version 1.0 b032222w
+ * b032222w:	Basic mechanism.
+ *
+ */
 public class Server implements Runnable{
 	private ServerEventListener sel;
 	private List<Client> clients = new ArrayList<Client>();
@@ -51,6 +58,7 @@ public class Server implements Runnable{
 		this.sel = sel;
 	}
 	private void messageFromClient(MessageObject mo){
+		System.out.println(mo.printHeader());
 		if(sel != null){
 			sel.serverEvent(mo);
 		}

@@ -8,16 +8,21 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import javax.swing.JTextField;
 
 public class ClientGui extends JFrame {
 
 	private JPanel contentPane;
 	private JTextPane textPane;
 	private Client client;
+	private JTextField textField;
+	private JButton btnStart;
+	private boolean accept = false;
 
 	/**
 	 * Launch the application.
@@ -52,12 +57,15 @@ public class ClientGui extends JFrame {
 		JButton btnNewButton = new JButton("New button");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//GroovyClientTest gct = new GroovyClientTest();
+				//gct.send3message(client);
+				//*
 				try {
 					client.sendMessage(new MessageObject("Client"));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				//*/
 			}
 		});
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
@@ -65,12 +73,37 @@ public class ClientGui extends JFrame {
 		textPane = new JTextPane();
 		contentPane.add(textPane, BorderLayout.CENTER);
 		
-		connectToMaster();
+		textField = new JTextField();
+		contentPane.add(textField, BorderLayout.NORTH);
+		textField.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				JTextField tf = (JTextField) arg0.getSource();
+				connectToMaster(tf.getText());
+			}
+		});
+		textField.setColumns(10);
+		
+		btnStart = new JButton("End");
+		btnStart.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					client.closeSocket();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		contentPane.add(btnStart, BorderLayout.EAST);
 	}
 	
-	private void connectToMaster(){
+	private void connectToMaster(String st){
 		try {
-			client = new Client("127.0.0.1");
+			client = new Client(st);
 			client.addListener(new ServerEventListener(){
 				public void serverEvent(MessageObject mo) {
 					updateTextPane(mo);

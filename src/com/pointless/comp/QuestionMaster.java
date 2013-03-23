@@ -1,8 +1,13 @@
 package com.pointless.comp;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -11,12 +16,15 @@ import com.pointless.chat.ChatFilter;
 import com.pointless.chat.ChatFilterType;
 import com.pointless.chat.ChatIsLimitedException;
 import com.pointless.chat.ChatListener;
+import com.pointless.communication.Client;
+import com.pointless.communication.MessageObject;
+import com.pointless.communication.ServerEventListener;
 import com.pointless.io.QuestionLoader;
 import com.pointless.quiz.Answer;
 import com.pointless.quiz.Quiz;
 
 public class QuestionMaster{
-	private List<Player> players = new ArrayList<Player>();
+	private Map<String,Client> players = new HashMap<>();
 	private List<Team> teams = new ArrayList<Team>();
 	private List<Quiz> quizList;
 	private int currentRound;
@@ -27,6 +35,33 @@ public class QuestionMaster{
 	public QuestionMaster(){
 		quizList = QuestionLoader.load(new File("Quizes"));
 	}
+	
+	public void run() {
+		try {
+			int servPort = 53346;
+			ServerSocket servSock = new ServerSocket(servPort);
+			
+			while(true){
+				System.out.println("Waiting for client ...");
+				Socket playerSocket = servSock.accept();
+				System.out.println("Client: " + playerSocket.toString() + " was connected");
+				
+				Client newConnection = new Client(playerSocket);
+				newConnection.addListener(new ServerEventListener(){
+					public void serverEvent(MessageObject mo) {
+						messageFromClient(mo);
+					}
+				});
+				Thread thread = new Thread(newConnection);
+				clients.add(newConnection);
+				thread.start();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * @return the quizList
