@@ -1,4 +1,4 @@
-package com.pointless.player;
+package com.pointless.message;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import javax.swing.JTextField;
 
-import com.pointless.message.MessageObject;
-import com.pointless.message.MessageEventListener;
 
 public class ClientGui extends JFrame {
 

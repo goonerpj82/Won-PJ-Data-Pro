@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -17,16 +19,23 @@ import com.pointless.chat.ChatFilterType;
 import com.pointless.chat.ChatIsLimitedException;
 import com.pointless.chat.ChatListener;
 import com.pointless.io.QuestionLoader;
-import com.pointless.message.MessageObject;
-import com.pointless.message.MessageEventListener;
-import com.pointless.player.Client;
+import com.pointless.message.*;
 import com.pointless.player.Player;
 import com.pointless.quiz.Answer;
 import com.pointless.quiz.Quiz;
 
-public class QuestionMaster{
-	private Map<String,Client> players = new HashMap<>();
-	private List<Team> teams = new ArrayList<Team>();
+/**
+ * 
+ * @author Won Lee
+ * @version 0.2 b032413w
+ * b032413w:	Basic of Joining Game Protocol done.
+ *
+ */
+public class QuestionMaster implements Runnable{
+//public class QuestionMaster extends Thread{
+	private Map<String,Client> clientMap = new HashMap<>();
+	private List<JoinedPlayer> players = new ArrayList<>();
+	private List<Team> teams = new ArrayList<>();
 	private List<Quiz> quizList;
 	private int currentRound;
 	private ChatFilter chatFilter = new ChatFilter();
@@ -37,25 +46,38 @@ public class QuestionMaster{
 		quizList = QuestionLoader.load(new File("Quizes"));
 	}
 	
+	public static void main(String[] arg){
+		new Thread(new QuestionMaster()).start();
+		//new QuestionMaster().start();
+	}
+	
 	public void run() {
 		try {
 			int servPort = 53346;
 			ServerSocket servSock = new ServerSocket(servPort);
 			
 			while(true){
+				System.out.println("Number of Players " + players.size() + " and Connections " + clientMap.size());
 				System.out.println("Waiting for client ...");
 				Socket playerSocket = servSock.accept();
 				System.out.println("Client: " + playerSocket.toString() + " was connected");
 				
 				Client newConnection = new Client(playerSocket);
-				newConnection.addListener(new MessageEventListener(){
-					public void messageEvent(MessageObject mo) {
-						messageFromClient(mo);
-					}
-				});
-				Thread thread = new Thread(newConnection);
-				clients.add(newConnection);
-				thread.start();
+				String key = "" + playerSocket.getRemoteSocketAddress();
+				if(clientMap.containsKey(key)){
+					//close socket if connection to the host is already established.
+					newConnection.closeSocket();
+				}else{
+					System.out.println("The Key is " + key);
+					clientMap.put(key, newConnection);
+					newConnection.addListener(new MessageEventListener(){
+						public void messageEvent(MessageObject mo) throws IOException {
+							messageFromClient(mo);
+						}
+					});
+					Thread thread = new Thread(newConnection);
+					thread.start();
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -133,56 +155,90 @@ public class QuestionMaster{
 	public void setChatFilter(ChatFilter chatFilter) {
 		this.chatFilter = chatFilter;
 	}
-
-	/**
-	 * @return the players
-	 */
-	public List<Player> getPlayers() {
-		return players;
-	}
-
-	/**
-	 * @param players the players to set
-	 */
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
 	
-	public void addPlayer(Player player){
-		System.out.println("Ob: "+player.countObservers());
-		player.addObserver(new Observer(){
-			public void update(Observable arg0, Object arg1) {
-				filter(arg0, arg1);
-			}
-		});
-		chatFilter.changeSourceFilter(player, ChatFilterType.Allow);
-		chatFilter.changeDestinationFilter(player, ChatFilterType.Allow);
-		players.add(player);
-	}
-	
-	public void createTeam(Player player1){
-		teams.add(new Team(player1));
-	}
-	public void createTeam(Player player1, Player player2){
-		teams.add(new Team(player1, player2));
-	}
-	
-	public void startGame(){
-		for(Player player: players){
-			teams.add(new Team(player));
+	public void sendMessageToAll(MessageObject mo) throws IOException{
+		Collection clients = clientMap.values();
+		for(Iterator i = clients.iterator(); i.hasNext();){
+			Client cl = (Client) i.next();
+			cl.sendMessage(mo);
 		}
-		for(Player player: players){
-			
+	}
+	public void sendMessage(String addressKey, MessageObject mo) throws IOException{
+		clientMap.get(addressKey).sendMessage(mo);
+	}
+	
+	/**
+	 * Filter the message depending on the Message Class
+	 * @param mo
+	 * @throws IOException
+	 */
+	public void messageFromClient(MessageObject mo) throws IOException{
+		if(mo instanceof FirstMessage){
+			System.out.println("Join Request");
+			addPlayer((FirstMessage) mo);
+		}else if(mo instanceof EndMessage){
+			System.out.println("Closing Notification");
+			playerDisconnected((EndMessage) mo);
 		}
 	}
 	
-	public Player matchPlayerByName(String name){
-		for(Player player: players){
-			if(player.getName().equals(name)){
-				return player;
+	/**
+	 * Check player name is available and if it is, add player and send CONFIRM message.
+	 * If not, send REJECT message.
+	 * @param fm
+	 * @throws IOException
+	 */
+	public void addPlayer(FirstMessage fm) throws IOException{
+		boolean foundName = false;
+		for(JoinedPlayer jp: players){
+			if(jp.getName().equals(fm.getSrceName())){
+				foundName = true;
+				break;
 			}
 		}
-		return null;
+		String key = fm.getAddressKey().toString();
+		if(!foundName){
+			players.add(new JoinedPlayer(fm.getSrceName(),""+fm.getAddressKey()));
+			sendMessage(key, new FirstMessage("QuestionMaster",FirstType.CONFIRM));
+			//sendMessageToAll(new MessageObject("Player "+fm.getSrceName()+" was Joined"));
+		}else{
+			sendMessage(key, new FirstMessage("QuestionMaster",FirstType.REJECT));
+		}
+		System.out.println("Number of Players " + players.size() + " and Connections " + clientMap.size());
+	}
+	
+	public void playerDisconnected(EndMessage mo){
+		System.out.println("disconnecting player");
+		System.out.println("Key of EndMessage: " + mo.getAddressKey());
+		clientMap.remove(""+mo.getAddressKey());
+		removePlayer(mo.getAddressKey().toString());
+		System.out.println("Player was disconnected and removed sucessfully");
+	}
+	public void removePlayer(String addressKey){
+		JoinedPlayer removed = null;
+		for(JoinedPlayer jp: players){
+			if(jp.getAddressKey().equals(addressKey)){
+				/*
+				 * We cannot delete element from list/map during the for loop
+				 * because it cause concurrentModificationException.
+				 * This didn't happen Java1.6 but it was a known bug?
+				 */
+				removed = jp;
+			}
+		}
+		if(removed != null){
+			players.remove(removed);
+		}
+	}
+	public void removePlayer(JoinedPlayer jp){
+		players.remove(jp);
+	}
+	
+	public void sendMessage(String key) throws IOException{
+		clientMap.get(key).sendMessage(new MessageObject("QM"));
+	}
+	public void sendMessage(JoinedPlayer jp) throws IOException{
+		sendMessage(jp.getAddressKey());
 	}
 	
 	public void filter(Observable arg0, Object arg1) {
@@ -213,7 +269,7 @@ public class QuestionMaster{
 		}
 		if(arg1.equals("Bye Bye")){
 			System.out.println(arg1.toString());
-			players.remove(p1);
+			clientMap.remove(p1);
 		}
 	}
 	

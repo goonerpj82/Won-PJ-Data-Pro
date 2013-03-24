@@ -6,48 +6,48 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
+/**
+ * addressKey has to be set when the message is sent
+ * 
+ * @author Won
+ *
+ */
 public class MessageObject implements Serializable{
 	
 	private static int messageIdBase = 0;
 	private int messageId;
-	private InetAddress srceAddress;
-	private int srcePort;
+	private SocketAddress addressKey;
 	private String srceName;
 	
 	public MessageObject(String srceName){
 		messageId = ++messageIdBase;
 		this.srceName = srceName;
 	}
-	public MessageObject(String srceName, Socket socket){
-		messageId = ++messageIdBase;
-		this.srceName = srceName;
-		setHeader(socket);
+	
+	public SocketAddress getAddressKey(){
+		return addressKey;
 	}
 	
-	public void setHeader(Socket socket){
-		srceAddress = socket.getLocalAddress();
-		srcePort = socket.getLocalPort();
-	}
-	public String printHeader(){
-		return "" + srceAddress.toString() + ":" + srcePort;
+	/**
+	 * "/[IP address]:[port number]"
+	 * This is used by question master to identify player 
+	 * This method is supposed to be called when Client instance sends message.
+	 * @param socket
+	 */
+	public void setAddressKey(Socket socket){
+		addressKey = socket.getLocalSocketAddress();
 	}
 		
 	/**
-	 * @return the srceAddress
+	 * 
+	 * @return
 	 */
-	public InetAddress getSrceAddress() {
-		return srceAddress;
-	}
-	/**
-	 * @return the srcePort
-	 */
-	public int getSrcePort() {
-		return srcePort;
+	public String getSrceName(){
+		return srceName;
 	}
 	
 	public String toString(){
 		return "This message ID is " + messageId + "\n" +
-				"This message from: " + srceAddress.getHostAddress() + ":" +
-						"" + srcePort;
+				"This message from: " + addressKey;
 	}
 }

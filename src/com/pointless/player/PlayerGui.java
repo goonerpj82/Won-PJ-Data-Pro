@@ -1,4 +1,4 @@
-package com.pointless.gui;
+package com.pointless.player;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,13 +12,28 @@ import javax.swing.border.EmptyBorder;
 
 import com.pointless.chat.Chat;
 import com.pointless.chat.ChatListener;
-import com.pointless.player.Player;
+import com.pointless.gui.ChatPane;
+import com.pointless.gui.DestinationClickedListener;
+import com.pointless.gui.GuiAnswerListener;
+import com.pointless.gui.MainDisplayPane;
+import com.pointless.gui.OtherTeamInfoPane;
+import com.pointless.message.Client;
 import com.pointless.qm.Team;
 import com.pointless.quiz.Answer;
 
 import javax.swing.JLayeredPane;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import java.io.IOException;
+
+import javax.swing.JButton;
 
 /**
  * All necessary information to generate GUi is given by QuestionMasterGui instance.
@@ -34,6 +49,11 @@ public class PlayerGui extends JFrame {
 	private OtherTeamInfoPane otip;
 	private JPanel contentPane;
 	private MainDisplayPane mainDisplayPane;
+	private JMenuBar menuBar;
+	private JTextField txfQm;
+	private JTextField txfName;
+	private JButton btnConnect;
+	private JPanel loginPane;
 
 	/**
 	 * Launch the application.
@@ -63,11 +83,14 @@ public class PlayerGui extends JFrame {
 		});
 		
 		setResizable(false);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		/*
 		if(constPlayer == null){
 			String name = JOptionPane.showInputDialog("Enter Player Name");
 			constPlayer = new Player(name);
 		}
+		*
 		
 		player = constPlayer;
 		player.addChatListener(new ChatListener(){
@@ -78,6 +101,7 @@ public class PlayerGui extends JFrame {
 		});
 
 		this.setTitle("Player <" + player.getName() + ">");
+		*/
 		
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
@@ -86,11 +110,11 @@ public class PlayerGui extends JFrame {
 		contentPane.setLayout(null);
 				
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 494, 372);
+		layeredPane.setBounds(0, 20, 494, 352);
 		contentPane.add(layeredPane);
 		
 		chatPane = new ChatPane();
-		chatPane.setBounds(144, 222, 350, 150);
+		chatPane.setBounds(144, 200, 350, 150);
 		chatPane.addChatListener(new ChatListener(){
 			public void chatEvent(Chat chat) {}
 			public void chatEvent(Player dest, String message, boolean toAll) {
@@ -102,7 +126,7 @@ public class PlayerGui extends JFrame {
 		layeredPane.add(chatPane);
 		
 		otip = new OtherTeamInfoPane();
-		otip.setBounds(0, 222, 145, 150);
+		otip.setBounds(0, 200, 145, 150);
 		otip.addDestListener(new DestinationClickedListener(){
 			public void destClicked(Player dest) {
 				chatPane.changeDest(dest);
@@ -112,13 +136,71 @@ public class PlayerGui extends JFrame {
 		layeredPane.add(otip);
 		
 		mainDisplayPane = new MainDisplayPane();
-		mainDisplayPane.setBounds(0, 0, 494, 220);
+		mainDisplayPane.setBounds(0, 0, 494, 200);
 		mainDisplayPane.addGuiAnswerListener(new GuiAnswerListener(){
 			public void guiAnswered(Answer guiAnswer) {
 				
 			}
 		});
 		layeredPane.add(mainDisplayPane);
+		
+		/*
+		 * Code for Login Panel. This panel is displayed at first.
+		 * Enter server address and player's Name.
+		 * Connecting server successfully and player name is available,
+		 * Login Panel will be removed.
+		 */
+		loginPane = new JPanel();
+		layeredPane.setLayer(loginPane, 10);
+		loginPane.setBounds(0, 0, 494, 350);
+		layeredPane.add(loginPane);
+		FlowLayout fl_loginPane = new FlowLayout(FlowLayout.CENTER, 5, 5);
+		loginPane.setLayout(fl_loginPane);
+		
+		JLabel lblQuizmasterAddress = new JLabel("QuizMaster Address");
+		loginPane.add(lblQuizmasterAddress);
+		
+		txfQm = new JTextField();
+		loginPane.add(txfQm);
+		txfQm.setColumns(10);
+		
+		JLabel lblYourGameName = new JLabel("Your Game Name");
+		loginPane.add(lblYourGameName);
+		
+		txfName = new JTextField();
+		loginPane.add(txfName);
+		txfName.setColumns(10);
+		
+		btnConnect = new JButton("Connect");
+		btnConnect.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Clicked");
+				player = new Player();
+				try {
+					boolean ok = player.joinGame(txfQm.getText(), txfName.getText());
+					System.out.println("Success? => " + ok);
+					if(ok){
+						loginPane.setVisible(false);
+					}else{
+						txfName.setText("");
+					}
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					txfQm.setText("");
+					e.printStackTrace();
+				}
+			}
+		});
+		loginPane.add(btnConnect);
+		
+		//End of Login Pane Code.
+		
+		/*
+		 * Code for Menu bar
+		 */
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 494, 21);
+		contentPane.add(menuBar);
 	}
 	
 	public Player getPlayer(){
@@ -135,15 +217,6 @@ public class PlayerGui extends JFrame {
 	}
 	
 	public void updateTeamInfo(List<Team> teams){
-		Player playerb = new Player("PJ");
-		Team team = new Team(player, playerb);
 		
-		teams = new ArrayList<Team>();
-		teams.add(team);
-		teams.add(team);
-		teams.add(team);
-		teams.add(team);
-		
-		otip.refresh(teams);
 	}
 }

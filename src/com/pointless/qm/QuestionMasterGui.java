@@ -1,4 +1,4 @@
-package com.pointless.gui;
+package com.pointless.qm;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -17,12 +17,13 @@ import com.pointless.chat.ChatFilterType;
 import com.pointless.chat.ChatIsLimitedException;
 import com.pointless.chat.ChatListener;
 import com.pointless.player.Player;
-import com.pointless.qm.QuestionMaster;
-import com.pointless.qm.Team;
+import com.pointless.player.PlayerGui;
 import com.pointless.quiz.Answer;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JTextPane;
 
@@ -84,8 +85,14 @@ public class QuestionMasterGui extends JFrame {
 		txtAddPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JTextField txt = (JTextField) arg0.getSource();
-				if(qm.matchPlayerByName(txt.getText()) == null){
-					addPlayer(new Player(txt.getText()));
+				//if(qm.matchPlayerByName(txt.getText()) == null){
+					//addPlayer(new Player(txt.getText()));
+				//}
+				try {
+					qm.sendMessage(txt.getText());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				txt.setText("");
 			}
@@ -114,17 +121,20 @@ public class QuestionMasterGui extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent arg0) {
 				JTextField txf = (JTextField) arg0.getSource();
-				for(Player player: qm.getPlayers()){
-					player.receiveChat(new Chat(new Player("Master"), player, txf.getText(), false));
-				}
+				//for(Player player: qm.getPlayers()){
+					//player.receiveChat(new Chat(new Player("Master"), player, txf.getText(), false));
+				//}
 				txf.setText("");
 			}
 		});
 		txf_message.setBounds(0, 220, 173, 20);
 		chatPane.add(txf_message);
 		txf_message.setColumns(10);
+		
+		new Thread(qm).start();
 	}
 	
+	/*
 	private void addPlayer(Player player){
 		qm.addPlayer(player);
 		PlayerGui pGui = new PlayerGui(player);
@@ -135,6 +145,7 @@ public class QuestionMasterGui extends JFrame {
 	private void startGame(){
 		qm.startGame();
 	}
+	*/
 	
 	private void verifyChat(Chat chat){
 		JPanel verifyPane = new JPanel();

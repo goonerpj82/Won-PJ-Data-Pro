@@ -1,4 +1,4 @@
-package com.pointless.player;
+package com.pointless.message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,9 +10,6 @@ import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import com.pointless.message.EndMessage;
-import com.pointless.message.MessageObject;
-import com.pointless.message.MessageEventListener;
 
 /**
  * This class is to communicate with QuizMaster over TCP
@@ -46,7 +43,8 @@ public class Client implements Runnable{
 				ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 				MessageObject mo = (MessageObject) ois.readObject();
 				System.out.println("--- Message Received ---\n" + mo.toString());
-				System.out.println("From: " + socket.getRemoteSocketAddress() + " To: " + socket.getLocalAddress());
+				System.out.println("From: " + mo.getSrceName() + " (" +
+						"" + socket.getRemoteSocketAddress() + ") To: " + socket.getLocalAddress());
 				if(!(mo instanceof EndMessage)){
 					messageEvent(mo);
 				}else{
@@ -64,6 +62,8 @@ public class Client implements Runnable{
 			}
 		}
 	}
+	
+	
 
 	/**
 	 * @param address of the server
@@ -90,10 +90,29 @@ public class Client implements Runnable{
 	public void sendMessage(MessageObject mo) throws IOException{
 		System.out.println("Sending message");
 		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-		mo.setHeader(socket);
+		mo.setAddressKey(socket);
 		oos.writeObject(mo);
 		oos.flush();
 	}
+	
+	/**
+	 * 
+	 * @param name that player want to use
+	 * @return true if name is available flase if not
+	 * @throws IOException when there is problem with sending or receiving.
+	 * @throws ClassNotFoundException
+	 */
+	public boolean nameNegotiation(String name) throws IOException, ClassNotFoundException{
+		sendMessage(new FirstMessage(name, FirstType.REQUEST));
+		ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+		FirstMessage mo = (FirstMessage) ois.readObject();
+		if(mo.getFt().equals(FirstType.CONFIRM)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	
 	/**
 	 * This method is to close socket.
@@ -101,6 +120,7 @@ public class Client implements Runnable{
 	 * so that remote host also close the socket.
 	 * @throws IOException
 	 */
+	//public void closeSocket(EndType et) throws IOException{
 	public void closeSocket() throws IOException{
 		sendMessage(new EndMessage(""));
 		socket.close();
@@ -109,7 +129,7 @@ public class Client implements Runnable{
 	public void addListener(MessageEventListener sel){
 		this.sel = sel;
 	}
-	private void messageEvent(MessageObject mo){
+	private void messageEvent(MessageObject mo) throws IOException{
 		if(sel != null){
 			sel.messageEvent(mo);
 		}

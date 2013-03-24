@@ -7,15 +7,14 @@ import com.pointless.player.Player;
 
 public class Team {
 	
-	private int score = 0;
-	private List<Player> players;
+	private List<JoinedPlayer> players;
 	
-	public Team(Player player1){
-		players = new ArrayList<Player>();
+	public Team(JoinedPlayer player1){
+		players = new ArrayList<>();
 		players.add(player1);
 	}
-	public Team(Player player1, Player player2){
-		players = new ArrayList<Player>();
+	public Team(JoinedPlayer player1, JoinedPlayer player2){
+		players = new ArrayList<>();
 		players.add(player1);
 		if(player2 != null){
 			players.add(player2);
@@ -26,32 +25,33 @@ public class Team {
 	 * @return the score
 	 */
 	public int getScore() {
+		int score = 0;
+		for(JoinedPlayer jp: players){
+			score += jp.getScore();
+		}
 		return score;
-	}
-
-	/**
-	 * @param score the score to set
-	 */
-	public void setScore(int score) {
-		this.score = score;
 	}
 
 	/**
 	 * @return the players
 	 */
-	public List<Player> getPlayers() {
+	public List<JoinedPlayer> getPlayers() {
 		return players;
 	}
 
 	/**
 	 * @param players the players to set
 	 */
-	public void setPlayers(List<Player> players) {
+	public void setPlayers(List<JoinedPlayer> players) {
 		this.players = players;
 	}
 	
-	public void addPlayerToTeam(Player player){
-		players.add(player);
+	public void addPlayerToTeam(JoinedPlayer player){
+		if(players.size() < 2){
+			players.add(player);
+		}else{
+			//throw new TeamSizeException();
+		}
 	}
 
 }

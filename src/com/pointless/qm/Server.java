@@ -14,9 +14,9 @@ import java.util.List;
 
 import org.omg.CORBA_2_3.portable.OutputStream;
 
+import com.pointless.message.Client;
 import com.pointless.message.MessageObject;
 import com.pointless.message.MessageEventListener;
-import com.pointless.player.Client;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class Server implements Runnable{
 				
 				Client newConnection = new Client(playerSocket);
 				newConnection.addListener(new MessageEventListener(){
-					public void messageEvent(MessageObject mo) {
+					public void messageEvent(MessageObject mo) throws IOException {
 						messageFromClient(mo);
 					}
 				});
@@ -61,8 +61,8 @@ public class Server implements Runnable{
 	public void addListener(MessageEventListener sel){
 		this.sel = sel;
 	}
-	private void messageFromClient(MessageObject mo){
-		System.out.println(mo.printHeader());
+	private void messageFromClient(MessageObject mo) throws IOException{
+		System.out.println(mo.getAddressKey());
 		if(sel != null){
 			sel.messageEvent(mo);
 		}
