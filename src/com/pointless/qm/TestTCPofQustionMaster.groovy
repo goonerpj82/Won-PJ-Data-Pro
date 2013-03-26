@@ -1,6 +1,6 @@
 package com.pointless.qm
 
-import com.pointless.message.Client;
+import com.pointless.io.Client;
 import com.pointless.message.FirstMessage
 import com.pointless.message.FirstType;
 import com.pointless.message.MessageEventListener;

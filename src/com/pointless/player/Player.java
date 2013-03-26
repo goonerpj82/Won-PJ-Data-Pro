@@ -2,14 +2,16 @@ package com.pointless.player;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import com.pointless.chat.Chat;
-import com.pointless.chat.ChatListener;
-import com.pointless.message.Client;
+import com.pointless.io.Client;
+import com.pointless.message.ChatMessage;
+import com.pointless.message.EndType;
 import com.pointless.message.MessageEventListener;
 import com.pointless.message.MessageObject;
+import com.pointless.message.PlayerMessage;
 import com.pointless.qm.Team;
 import com.pointless.quiz.Answer;
 import com.pointless.quiz.Quiz;
@@ -21,21 +23,30 @@ import com.pointless.quiz.Quiz;
  * b032413w:	Basic of Joining Game Protocol Done
  *
  */
-public class Player extends Observable implements Serializable{
+public class Player implements Serializable{
 	private int id;
 	private String name;
 	private boolean myTurn;
 	private Quiz givenQuiz;
-	private List<Team> teams;
-	private ChatListener chatListener;
+	private List<String> otherPlayers;
 	private Client client;
+	private String chatLog;
+	private int chatMax;
+	private MessageEventListener listener;
 
 	public Player(String name) {
+		this();
 		this.name = name;
 	}
 	public Player(){
-		
+		chatLog = "Welcome to Pointless Game by Won & PJ\n";
+		chatMax = 2000;
+		otherPlayers = new ArrayList<>();
 	}
+	
+	/*
+	 * Getters and Setters
+	 */
 	
 	/**
 	 * @return the id
@@ -110,10 +121,40 @@ public class Player extends Observable implements Serializable{
 	/**
 	 * @return the otherPlayers
 	 */
-	public List<Team> getTeams() {
-		return teams;
+	public List<String> getOtherPlayers() {
+		return otherPlayers;
+	}
+
+	/**
+	 * @return the chatMax
+	 */
+	public int getChatMax() {
+		return chatMax;
+	}
+	/**
+	 * @param chatMax the chatMax to set
+	 */
+	public void setChatMax(int chatMax) {
+		this.chatMax = chatMax;
+	}
+	/**
+	 * @return the chatLog
+	 */
+	public String getChatLog() {
+		return chatLog;
+	}
+	/**
+	 * @param chatLog the chatLog to set
+	 */
+	public void setChatLog(String chatLog) {
+		this.chatLog = chatLog;
 	}
 	
+	
+	/*
+	 * Methods to join
+	 */
+
 	/**
 	 * 
 	 * @param addr QuestionMaster's IP Address
@@ -126,60 +167,96 @@ public class Player extends Observable implements Serializable{
 		client = new Client(addr);
 		client.addListener(new MessageEventListener(){
 			public void messageEvent(MessageObject mo) throws IOException {
-				//
+				handleMessage(mo);
 			}
 		});
 		boolean ok = client.nameNegotiation(name);
 		if(ok){
+			this.setName(name);
 			new Thread(client).start();
 			return ok;
 		}else{
 			return ok;
 		}
 	}
+
+	/*
+	 * Methods that deal with client
+	 */
 	
-	public void addChatListener(ChatListener chatListener){
-		this.chatListener = chatListener;
+	private void sendMessage(MessageObject mo) throws IOException{
+		client.sendMessage(mo);
 	}
-	public void receiveChat(Chat chat){
-		System.out.println("Chat is received at Player");
-		if(chatListener != null){
-			chatListener.chatEvent(chat);
+	
+	public void closing() throws IOException{
+			client.closeSocket(EndType.DISCONNECT);
+	}
+	
+	private void handleMessage(MessageObject meob) throws IOException{
+		if(meob instanceof ChatMessage){
+			chatReceived((ChatMessage) meob);
+		}else if(meob instanceof PlayerMessage){
+			playerInfoReceived((PlayerMessage) meob);
+		}
+		messageReceived(meob);
+	}
+	
+	/*
+	 * Methods to deal with received Message
+	 */
+	
+	private void chatReceived(ChatMessage chme){
+		String tmp = "From <" + chme.getSrceName() + "> : ";
+		tmp += chme.getText() + "\n";
+		chatLog += tmp;
+		if(chatLog.length() > chatMax){
+			int exceed = chatLog.length() - chatMax;
+			chatLog = chatLog.substring(exceed, chatLog.length());
 		}
 	}
-
+	
+	private void playerInfoReceived(PlayerMessage plme){
+		List<String> names = new ArrayList<>();
+		for(String st: plme.getCodes()){
+			String[] sts = st.split(":~><#");
+			names.add(sts[0]);
+		}
+		otherPlayers = names;
+		System.out.println(otherPlayers);
+	}
+	
+	/*
+	 * Methods to send message
+	 */
+	
+	public void sendChat(ChatMessage chme) throws IOException{
+		sendMessage(chme);
+	}
+	public void sendChat(String srceName, boolean toAll, String destName, String text) throws IOException{
+		ChatMessage chme = new ChatMessage(srceName, toAll, destName, text);
+		sendChat(chme);
+	}
+	
+	/*
+	 * About listener
+	 */
+	public void addMessageEventListener(MessageEventListener mel){
+		listener = mel;
+	}
+	private void messageReceived(MessageObject meob) throws IOException{
+		if(listener != null){
+			listener.messageEvent(meob);
+		}
+	}
+	
+	/*
+	 * miscellaneous
+	 */
 	/**
-	 * @param otherPlayers the otherPlayers to set
+	 * This method is for adding text that is to notify player something on chatPane
+	 * @param st text that you want to add
 	 */
-	public void setOtherPlayers(List<Team> teams) {
-		this.teams = teams;
-	}
-	public void answerQuestion(Answer answer){
-		notifyObservers(answer);
-	}
-
-	public void passChatToMaster(Chat chat){
-		notifyObservers(chat);
-	}
-	public void closing(){
-		try {
-			client.closeSocket();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.notifyObservers("Bye Bye");
-	}
-	
-	
-
-	/* (non-Javadoc)
-	 * @see java.util.Observable#notifyObservers(java.lang.Object)
-	 */
-	@Override
-	public void notifyObservers(Object arg) {
-		System.out.println("Notifying "+arg.toString());
-		setChanged();
-		super.notifyObservers(arg);
+	public void addTextToChatLog(String st){
+		chatLog += st + "\n";
 	}
 }

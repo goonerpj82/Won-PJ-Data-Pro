@@ -3,6 +3,7 @@ package com.pointless.chat;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.pointless.message.ChatMessage;
 import com.pointless.player.Player;
 
 public class ChatFilter {
@@ -15,20 +16,7 @@ public class ChatFilter {
 	}
 
 	
-	public boolean verifyChat(Chat chat) throws ChatIsLimitedException{
-		if(sourceFilter.get(chat.getSource()).equals(ChatFilterType.Deny)){
-			System.out.println("Message from " + chat.getSource().getName() + " is not allowed.");
-			return false;
-		}
-		if(destinationFilter.get(chat.getSource()).equals(ChatFilterType.Deny)){
-			System.out.println("Message to " + chat.getDestination().getName() + " is not allowed.");
-			return false;
-		}
-		//if(sourceFilter.get(chat.getSource()).equals(ChatFilterType.OnlyToTeam) ||
-		//		destinationFilter.get(chat.getDestination()).equals(ChatFilterType.OnlyToTeam)){
-		//	System.out.println("Source or Destination Player is only allow to talk with team mate");
-		//	throw new ChatIsLimitedException();
-		//}
+	public boolean verifyChat(ChatMessage chme) throws ChatIsLimitedException{
 		return true;
 	}
 	

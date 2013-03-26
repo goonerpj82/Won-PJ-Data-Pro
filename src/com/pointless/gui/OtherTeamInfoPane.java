@@ -26,6 +26,7 @@ public class OtherTeamInfoPane extends JPanel {
 	public void refresh(List<Team> arg0){
 		removeAll();
 		for(int i=0; i<arg0.size(); i++){
+			/*
 			TeamCell tc1 = new TeamCell(arg0.get(i));
 			tc1.addDestListener(new DestinationClickedListener(){
 				public void destClicked(Player dest) {
@@ -34,6 +35,7 @@ public class OtherTeamInfoPane extends JPanel {
 			});
 			tc1.setBounds(0, 36*i+2*i, 144, 40);
 			add(tc1);
+			*/
 		}
 		revalidate();
 	}

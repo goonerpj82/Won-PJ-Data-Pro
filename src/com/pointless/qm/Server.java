@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.omg.CORBA_2_3.portable.OutputStream;
 
-import com.pointless.message.Client;
+import com.pointless.io.Client;
 import com.pointless.message.MessageObject;
 import com.pointless.message.MessageEventListener;
 

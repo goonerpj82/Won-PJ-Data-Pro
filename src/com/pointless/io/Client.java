@@ -1,4 +1,4 @@
-package com.pointless.message;
+package com.pointless.io;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+
+import com.pointless.message.*;
 
 
 /**
@@ -96,16 +98,27 @@ public class Client implements Runnable{
 	}
 	
 	/**
+	 * This method has to be consider about timeout
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public MessageObject waitMessage() throws IOException, ClassNotFoundException{
+		ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+		MessageObject mo = (MessageObject) ois.readObject();
+		return mo;
+	}
+	
+	/**
 	 * 
 	 * @param name that player want to use
-	 * @return true if name is available flase if not
+	 * @return true if name is available false if not
 	 * @throws IOException when there is problem with sending or receiving.
 	 * @throws ClassNotFoundException
 	 */
 	public boolean nameNegotiation(String name) throws IOException, ClassNotFoundException{
 		sendMessage(new FirstMessage(name, FirstType.REQUEST));
-		ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-		FirstMessage mo = (FirstMessage) ois.readObject();
+		FirstMessage mo = (FirstMessage) waitMessage();
 		if(mo.getFt().equals(FirstType.CONFIRM)){
 			return true;
 		}else{
@@ -120,9 +133,9 @@ public class Client implements Runnable{
 	 * so that remote host also close the socket.
 	 * @throws IOException
 	 */
-	//public void closeSocket(EndType et) throws IOException{
-	public void closeSocket() throws IOException{
-		sendMessage(new EndMessage(""));
+	public void closeSocket(EndType et) throws IOException{
+	//public void closeSocket() throws IOException{
+		sendMessage(new EndMessage("",et));
 		socket.close();
 	}
 	

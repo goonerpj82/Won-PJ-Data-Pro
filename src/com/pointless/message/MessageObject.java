@@ -15,9 +15,9 @@ import java.net.SocketAddress;
 public class MessageObject implements Serializable{
 	
 	private static int messageIdBase = 0;
-	private int messageId;
-	private SocketAddress addressKey;
-	private String srceName;
+	protected int messageId;
+	protected SocketAddress addressKey;
+	protected String srceName;
 	
 	public MessageObject(String srceName){
 		messageId = ++messageIdBase;

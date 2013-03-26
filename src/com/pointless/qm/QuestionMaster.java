@@ -13,11 +13,10 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.pointless.chat.Chat;
 import com.pointless.chat.ChatFilter;
 import com.pointless.chat.ChatFilterType;
 import com.pointless.chat.ChatIsLimitedException;
-import com.pointless.chat.ChatListener;
+import com.pointless.io.Client;
 import com.pointless.io.QuestionLoader;
 import com.pointless.message.*;
 import com.pointless.player.Player;
@@ -40,7 +39,6 @@ public class QuestionMaster implements Runnable{
 	private int currentRound;
 	private ChatFilter chatFilter = new ChatFilter();
 	private boolean interrupt = false;
-	private ChatListener chatListener;
 	
 	public QuestionMaster(){
 		quizList = QuestionLoader.load(new File("Quizes"));
@@ -66,7 +64,7 @@ public class QuestionMaster implements Runnable{
 				String key = "" + playerSocket.getRemoteSocketAddress();
 				if(clientMap.containsKey(key)){
 					//close socket if connection to the host is already established.
-					newConnection.closeSocket();
+					newConnection.closeSocket(EndType.DISCONNECT);
 				}else{
 					System.out.println("The Key is " + key);
 					clientMap.put(key, newConnection);
@@ -85,6 +83,9 @@ public class QuestionMaster implements Runnable{
 		}
 	}
 
+	/*
+	 * Getters and Setters
+	 */
 
 	/**
 	 * @return the quizList
@@ -156,6 +157,10 @@ public class QuestionMaster implements Runnable{
 		this.chatFilter = chatFilter;
 	}
 	
+	/*
+	 * Codes for sending Message and dealing with received Message
+	 */
+	
 	public void sendMessageToAll(MessageObject mo) throws IOException{
 		Collection clients = clientMap.values();
 		for(Iterator i = clients.iterator(); i.hasNext();){
@@ -166,6 +171,13 @@ public class QuestionMaster implements Runnable{
 	public void sendMessage(String addressKey, MessageObject mo) throws IOException{
 		clientMap.get(addressKey).sendMessage(mo);
 	}
+	public void sendMessage(String key) throws IOException{
+		clientMap.get(key).sendMessage(new MessageObject("QM"));
+	}
+	public void sendMessage(JoinedPlayer jp) throws IOException{
+		sendMessage(jp.getAddressKey());
+	}
+	
 	
 	/**
 	 * Filter the message depending on the Message Class
@@ -176,11 +188,19 @@ public class QuestionMaster implements Runnable{
 		if(mo instanceof FirstMessage){
 			System.out.println("Join Request");
 			addPlayer((FirstMessage) mo);
+		}else if(mo instanceof ChatMessage){
+			ChatMessage chme = (ChatMessage) mo;
+			chat(chme);
 		}else if(mo instanceof EndMessage){
 			System.out.println("Closing Notification");
 			playerDisconnected((EndMessage) mo);
+			sendMessageToAll(new PlayerMessage("QM",generateCodesForPlayerMessage()));
 		}
 	}
+	
+	/*
+	 * Dealing with FirstMessage
+	 */
 	
 	/**
 	 * Check player name is available and if it is, add player and send CONFIRM message.
@@ -200,20 +220,64 @@ public class QuestionMaster implements Runnable{
 		if(!foundName){
 			players.add(new JoinedPlayer(fm.getSrceName(),""+fm.getAddressKey()));
 			sendMessage(key, new FirstMessage("QuestionMaster",FirstType.CONFIRM));
-			//sendMessageToAll(new MessageObject("Player "+fm.getSrceName()+" was Joined"));
+			sendMessageToAll(new PlayerMessage("QM",generateCodesForPlayerMessage()));
 		}else{
 			sendMessage(key, new FirstMessage("QuestionMaster",FirstType.REJECT));
 		}
 		System.out.println("Number of Players " + players.size() + " and Connections " + clientMap.size());
 	}
 	
-	public void playerDisconnected(EndMessage mo){
+	/*
+	 * Deal with ChatMessage
+	 */
+	
+	/**
+	 * Check ChatMessage and decide it is ok to send or not.
+	 * Filtering is not yet implemented. 
+	 * @param chme
+	 * @throws IOException
+	 */
+	public void chat(ChatMessage chme) throws IOException{
+		if(!chme.isToAll()){
+			//if chat is not for all player
+			String key = "";
+			for(JoinedPlayer jp: players){
+				if(jp.getName().equals(chme.getDestName())){
+					key = jp.getAddressKey();
+				}
+			}
+			sendMessage(key,chme);
+		}else{
+			//if chat is for all player
+			sendMessageToAll(chme);
+		}
+	}
+	
+	/*
+	 * Deal with EndMessage
+	 */
+	
+	public void playerDisconnected(EndMessage em){
 		System.out.println("disconnecting player");
-		System.out.println("Key of EndMessage: " + mo.getAddressKey());
-		clientMap.remove(""+mo.getAddressKey());
-		removePlayer(mo.getAddressKey().toString());
+		System.out.println("Key of EndMessage: " + em.getAddressKey());
+		clientMap.remove(""+em.getAddressKey());
+		removePlayer(em.getAddressKey().toString());
 		System.out.println("Player was disconnected and removed sucessfully");
 	}
+	
+	/*
+	 * Codes of functions to process the game
+	 */
+	
+	private List<String> generateCodesForPlayerMessage(){
+		List<String> codes = new ArrayList<>();
+		for(JoinedPlayer jp: players){
+			String code = jp.getName() + ":~><#" + jp.getScore();
+			codes.add(code);
+		}
+		return codes;
+	}
+	
 	public void removePlayer(String addressKey){
 		JoinedPlayer removed = null;
 		for(JoinedPlayer jp: players){
@@ -233,57 +297,6 @@ public class QuestionMaster implements Runnable{
 	public void removePlayer(JoinedPlayer jp){
 		players.remove(jp);
 	}
-	
-	public void sendMessage(String key) throws IOException{
-		clientMap.get(key).sendMessage(new MessageObject("QM"));
-	}
-	public void sendMessage(JoinedPlayer jp) throws IOException{
-		sendMessage(jp.getAddressKey());
-	}
-	
-	public void filter(Observable arg0, Object arg1) {
-		Player p1 = (Player) arg0;
-		System.out.println("QM heard "+arg1.toString()+" from "+p1.getName());
-		if(arg1 instanceof Chat){
-			Chat chat = (Chat) arg1;
-			try {
-				if(interrupt){
-					verifyChatByGui(chat);
-				}if(chatFilter.verifyChat(chat)){
-					System.out.println("Chat Verified");
-					//chat.getSource().receiveChat(chat);
-					sendChat(chat.getSource(),chat);
-				}else{
-					
-				}
-			} catch (ChatIsLimitedException e) {
-				e.printStackTrace();
-			}
-		}
-		if(arg1 instanceof Answer){
-			/*
-			if(p1.equals(currentPlayer){
-				
-			}
-			*/
-		}
-		if(arg1.equals("Bye Bye")){
-			System.out.println(arg1.toString());
-			clientMap.remove(p1);
-		}
-	}
-	
-	public void addChatListener(ChatListener chatListener){
-		this.chatListener = chatListener;
-	}
-	private void verifyChatByGui(Chat chat){
-		if(chatListener != null){
-			chatListener.chatEvent(chat);
-		}
-	}
-	public void sendChat(Player player, Chat chat){
-		System.out.println("Sending Chat from QuestionMaster");
-		player.receiveChat(chat);
-	}
+
 
 }

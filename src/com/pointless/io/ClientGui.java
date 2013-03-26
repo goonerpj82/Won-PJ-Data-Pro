@@ -1,4 +1,4 @@
-package com.pointless.message;
+package com.pointless.io;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -14,6 +14,10 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import javax.swing.JTextField;
+
+import com.pointless.message.EndType;
+import com.pointless.message.MessageEventListener;
+import com.pointless.message.MessageObject;
 
 
 public class ClientGui extends JFrame {
@@ -91,7 +95,7 @@ public class ClientGui extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				try {
-					client.closeSocket();
+					client.closeSocket(EndType.DISCONNECT);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -11,11 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.pointless.chat.Chat;
 import com.pointless.chat.ChatFilter;
 import com.pointless.chat.ChatFilterType;
 import com.pointless.chat.ChatIsLimitedException;
-import com.pointless.chat.ChatListener;
 import com.pointless.player.Player;
 import com.pointless.player.PlayerGui;
 import com.pointless.quiz.Answer;
@@ -64,13 +62,6 @@ public class QuestionMasterGui extends JFrame {
 	 * Create the frame.
 	 */
 	public QuestionMasterGui() {		
-		
-		qm.addChatListener(new ChatListener(){
-			public void chatEvent(Chat chat) {
-				//verifyChat(chat);
-			}
-			public void chatEvent(Player dest, String message, boolean toAll) {}
-		});
 		
 		System.out.println(qm.getQuizList().size());
 		
@@ -134,25 +125,5 @@ public class QuestionMasterGui extends JFrame {
 		new Thread(qm).start();
 	}
 	
-	/*
-	private void addPlayer(Player player){
-		qm.addPlayer(player);
-		PlayerGui pGui = new PlayerGui(player);
-		pGui.setVisible(true);
-		mapOfPP.put(player, pGui);
-	}
 	
-	private void startGame(){
-		qm.startGame();
-	}
-	*/
-	
-	private void verifyChat(Chat chat){
-		JPanel verifyPane = new JPanel();
-		JTextPane textPane = new JTextPane();
-		String st = "Chat from " + chat.getSource() + " to " + chat.getDestination() + "\n" +
-				"Message => " + chat.getMessage();
-		textPane.setText(st);
-		verifyPane.add(textPane);
-	}
 }
