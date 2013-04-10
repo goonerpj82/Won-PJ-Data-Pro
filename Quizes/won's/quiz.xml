@@ -15,6 +15,9 @@
 				<Phrase>
 					Answer Phrase
 				</Phrase>
+				<Correct>
+					Correct Answer
+				</Correct>
 				<point>
 					point (Integer!!)
 				</point>
@@ -28,72 +31,1231 @@
 	-->
 	
 	<Quiz QuizType="OutOfSeven">
-		<Title>
-			Quiz 1 2 3
-		</Title>
-		<Description>
-			This is how
-		</Description>
-		<Category>
-			General Knowledge
-		</Category>
+		<Title>Elvis Presley Films: Feature films for which Elvis Presley received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
 		<Answers>
-			<ans>
-				<Phrase>
-					You are
-				</Phrase>
-				<point>
-					50
-				</point>
-			</ans>
-			<ans>
-				<Phrase>
-					You are
-				</Phrase>
-				<point>
-					50
-				</point>
-			</ans>
-			<ans>
-				<Phrase>
-					You are
-				</Phrase>
-				<point>
-					50
-				</point>
-			</ans>
-			<ans>
-				<Phrase>
-					You are
-				</Phrase>
-				<point>
-					50
-				</point>
-			</ans>
-			<ans>
-				<Phrase>
-					You are
-				</Phrase>
-				<point>
-					50
-				</point>
-			</ans>
-			<ans>
-				<Phrase>
-					You are
-				</Phrase>
-				<point>
-					50
-				</point>
-			</ans>
-			<ans>
-				<Phrase>
-					You are
-				</Phrase>
-				<point>
-					50
-				</point>
-			</ans>
+			<ans1>
+				<Phrase>Fun in Acapulco</Phrase>
+				<point>3</point>
+			</ans1>
+			<ans2>
+				<Phrase>The road to Rio</Phrase>
+				<point>100</point>
+			</ans2>
+			<ans3>
+				<Phrase>Hang ten in Honolulu</Phrase>
+				<point>100</point>
+			</ans3>
+			<ans4>
+				<Phrase>Blue Hawaii</Phrase>
+				<point>21</point>
+			</ans4>
+			<ans5>
+				<Phrase>The trouble with girls</Phrase>
+				<point>0</point>
+			</ans5>
+			<ans6>
+				<Phrase>Jailhouse rock</Phrase>
+				<point>42</point>
+			</ans6>
+			<ans7>
+				<Phrase>Viva Las Vegas</Phrase>
+				<point>9</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="OutOfSeven">
+		<Title>Elvis Presley Films: Feature films for which Elvis Presley received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Kissin' Cousins</Phrase>
+				<point>3</point>
+			</ans1>
+			<ans2>
+				<Phrase>Frankie and Johnny</Phrase>
+				<point>0</point>
+			</ans2>
+			<ans3>
+				<Phrase>G.I. Blues</Phrase>
+				<point>7</point>
+			</ans3>
+			<ans4>
+				<Phrase>It happened at the world's fair</Phrase>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>Blackboard Jungle</Phrase>
+				<point>100</point>
+			</ans5>
+			<ans6>
+				<Phrase>Easy come, Easy go</Phrase>
+				<point>1</point>
+			</ans6>
+			<ans7>
+				<Phrase>Girl Happy</Phrase>
+				<point>1</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="OutOfSeven">
+		<Title>Brad Pitt Films: Feature films for which Brad Pitt received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Troy</Phrase>
+				<point>17</point>
+			</ans1>
+			<ans2>
+				<Phrase>Mr and Mrs Smith</Phrase>
+				<point>39</point>
+			</ans2>
+			<ans3>
+				<Phrase>Johnny Suede</Phrase>
+				<point>0</point>
+			</ans3>
+			<ans4>
+				<Phrase>Julius Caesar</Phrase>
+				<point>100</point>
+			</ans4>
+			<ans5>
+				<Phrase>Twelve Monkeys</Phrase>
+				<point>6</point>
+			</ans5>
+			<ans6>
+				<Phrase>Gangs of New York</Phrase>
+				<point>100</point>
+			</ans6>
+			<ans7>
+				<Phrase>The curious case of Benjamin Button</Phrase>
+				<point>20</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="OutOfSeven">
+		<Title>Brad Pitt Films: Feature films for which Brad Pitt received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Ocean's Eleven</Phrase>
+				<point>37</point>
+			</ans1>
+			<ans2>
+				<Phrase>Big Fish</Phrase>
+				<point>100</point>
+			</ans2>
+			<ans3>
+				<Phrase>Ocean's Twelve</Phrase>
+				<point>31</point>
+			</ans3>
+			<ans4>
+				<Phrase>Across the tracks</Phrase>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>The coal miner's daughter</Phrase>
+				<point>100</point>
+			</ans5>
+			<ans6>
+				<Phrase>Ocean's thirteen</Phrase>
+				<point></point>
+			</ans6>
+			<ans7>
+				<Phrase>Burn after reading</Phrase>
+				<point>4</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="OutOfSeven">
+		<Title>Jim Carrey Films: Feature films for which Jim Carrey received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>The dead pool</Phrase>
+				<point>1</point>
+			</ans1>
+			<ans2>
+				<Phrase>Arthur</Phrase>
+				<point>100</point>
+			</ans2>
+			<ans3>
+				<Phrase>The cable guy</Phrase>
+				<point>17</point>
+			</ans3>
+			<ans4>
+				<Phrase>The Mas</Phrase>
+				<point>38</point>
+			</ans4>
+			<ans5>
+				<Phrase>Ace Ventura: When nature calls</Phrase>
+				<point>4</point>
+			</ans5>
+			<ans6>
+				<Phrase>Man on the moon</Phrase>
+				<point>0</point>
+			</ans6>
+			<ans7>
+				<Phrase>Ace Ventura: Pet Detective</Phrase>
+				<point>34</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="OutOfSeven">
+		<Title>Jim Carrey Films: Feature films for which Jim Carrey received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Liar Liar</Phrase>
+				<point>25</point>
+			</ans1>
+			<ans2>
+				<Phrase>Once Bitten</Phrase>
+				<point>0</point>
+			</ans2>
+			<ans3>
+				<Phrase>The Grinch</Phrase>
+				<point>14</point>
+			</ans3>
+			<ans4>
+				<Phrase>Batman Forever</Phrase>
+				<point>7</point>
+			</ans4>
+			<ans5>
+				<Phrase>Earth Girls are Easy</Phrase>
+				<point>0</point>
+			</ans5>
+			<ans6>
+				<Phrase>99 times out of 100</Phrase>
+				<point>100</point>
+			</ans6>
+			<ans7>
+				<Phrase>The number 23</Phrase>
+				<point>2</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="OutOfSeven">
+		<Title>Bruce Willis Films: Feature films for which Bruce Willis received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Bandits</Phrase>
+				<point>0</point>
+			</ans1>
+			<ans2>
+				<Phrase>In another country</Phrase>
+				<point>100</point>
+			</ans2>
+			<ans3>
+				<Phrase>In Country</Phrase>
+				<point>0</point>
+			</ans3>
+			<ans4>
+				<Phrase>In the country of my birth</Phrase>
+				<point>100</point>
+			</ans4>
+			<ans5>
+				<Phrase>Hudson hawk</Phrase>
+				<point>7</point>
+			</ans5>
+			<ans6>
+				<Phrase>Twelve monkeys</Phrase>
+				<point>11</point>
+			</ans6>
+			<ans7>
+				<Phrase>The sixth sense</Phrase>
+				<point>15</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="OutOfSeven">
+		<Title>Bruce Willis Films: Feature films for which Bruce Willis received an acting credit.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Death becomes her</Phrase>
+				<point>1</point>
+			</ans1>
+			<ans2>
+				<Phrase>South and West</Phrase>
+				<point>100</point>
+			</ans2>
+			<ans3>
+				<Phrase>Armageddon</Phrase>
+				<point>9</point>
+			</ans3>
+			<ans4>
+				<Phrase>Die hard with a vengeance</Phrase>
+				<point>46</point>
+			</ans4>
+			<ans5>
+				<Phrase>The last boy scout</Phrase>
+				<point>6</point>
+			</ans5>
+			<ans6>
+				<Phrase>North</Phrase>
+				<point>0</point>
+			</ans6>
+			<ans7>
+				<Phrase>Mercury rising</Phrase>
+				<point>2</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Unusually named Premier and Fottball league teams, not 'United','City','Rovers'or'Town'</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Sport</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Preston North End</Phrase>
+				<point>8</point>
+			</ans1>
+			<ans2>
+				<Phrase>Crewe Alexandra</Phrase>
+				<point>0</point>
+			</ans2>
+			<ans3>
+				<Phrase>Tottenham Hotspurs</Phrase>
+				<point>12</point>
+			</ans3>
+			<ans4>
+				<Phrase>Nottingham Forest</Phrase>
+				<point>16</point>
+			</ans4>
+			<ans5>
+				<Phrase>Wrexham Athletic</Phrase>
+				<point>100</point>
+			</ans5>
+			<ans6>
+				<Phrase>Shefield Wednesday</Phrase>
+				<point>15</point>
+			</ans6>
+			<ans7>
+				<Phrase>Worcester Warriors</Phrase>
+				<point></point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Unusually named Premier and Fottball league teams, not 'United','City','Rovers'or'Town'</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Sport</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Notts County</Phrase>
+				<point>1</point>
+			</ans1>
+			<ans2>
+				<Phrase>Plymouth Argyle</Phrase>
+				<point>0</point>
+			</ans2>
+			<ans3>
+				<Phrase>aston Villa</Phrase>
+				<point>22</point>
+			</ans3>
+			<ans4>
+				<Phrase>Northampton Saints</Phrase>
+				<point>100</point>
+			</ans4>
+			<ans5>
+				<Phrase>Newcastle Falcons</Phrase>
+				<point>100</point>
+			</ans5>
+			<ans6>
+				<Phrase>West Bromwich Albion</Phrase>
+				<point>11</point>
+			</ans6>
+			<ans7>
+				<Phrase>Wolverhampton Wanderers</Phrase>
+				<point>19</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Teams that played in the Guiness Premiership during the 2009-2010 season.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Sport</Category>
+		<Answers>
+			<ans1>
+				<Phrase>London Wasps</Phrase>
+				<point>33</point>
+			</ans1>
+			<ans2>
+				<Phrase>Harlequins</Phrase>
+				<point>24</point>
+			</ans2>
+			<ans3>
+				<Phrase>Saracens</Phrase>
+				<point>10</point>
+			</ans3>
+			<ans4>
+				<Phrase>London Scottish</Phrase>
+				<point>100</point>
+			</ans4>
+			<ans5>
+				<Phrase>Bedford</Phrase>
+				<point>100</point>
+			</ans5>
+			<ans6>
+				<Phrase>Sale Sharks</Phrase>
+				<point>2</point>
+			</ans6>
+			<ans7>
+				<Phrase>Newcastle Falcons</Phrase>
+				<point>0</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Teams that played in the Guiness Premiership during the 2009-2010 season.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category></Category>
+		<Answers>
+			<ans1>
+				<Phrase>Northampton Saints</Phrase>
+				<point>15</point>
+			</ans1>
+			<ans2>
+				<Phrase>Worcester Warriors</Phrase>
+				<point>0</point>
+			</ans2>
+			<ans3>
+				<Phrase>Bristol</Phrase>
+				<point>100</point>
+			</ans3>
+			<ans4>
+				<Phrase>Leeds Carnegie</Phrase>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>Leicester Tigers</Phrase>
+				<point>22</point>
+			</ans5>
+			<ans6>
+				<Phrase>London Irish</Phrase>
+				<point>9</point>
+			</ans6>
+			<ans7>
+				<Phrase>Gloucester</Phrase>
+				<point>16</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Horse Racing courses in Great Britain</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Sport</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Leicester</Phrase>
+				<point>3</point>
+			</ans1>
+			<ans2>
+				<Phrase>York</Phrase>
+				<point>28</point>
+			</ans2>
+			<ans3>
+				<Phrase>Bangor on Dee</Phrase>
+				<point>2</point>
+			</ans3>
+			<ans4>
+				<Phrase>Fakenham</Phrase>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>Hamilton Park</Phrase>
+				<point>10</point>
+			</ans5>
+			<ans6>
+				<Phrase>St Austell</Phrase>
+				<point>100</point>
+			</ans6>
+			<ans7>
+				<Phrase>Uttoxeter</Phrase>
+				<point>12</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Horse Racing courses in Great Britain</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Sport</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Sandown park</Phrase>
+				<point>12</point>
+			</ans1>
+			<ans2>
+				<Phrase>Great Leighs</Phrase>
+				<point>0</point>
+			</ans2>
+			<ans3>
+				<Phrase>Thraxton</Phrase>
+				<point>100</point>
+			</ans3>
+			<ans4>
+				<Phrase>Towcester</Phrase>
+				<point>3</point>
+			</ans4>
+			<ans5>
+				<Phrase>Todmorden</Phrase>
+				<point>100</point>
+			</ans5>
+			<ans6>
+				<Phrase>Ayr</Phrase>
+				<point>20</point>
+			</ans6>
+			<ans7>
+				<Phrase>Epsom Downs</Phrase>
+				<point>28</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Wimbledon: Mens' singles winners from 1968 to 2009.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Sport</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Andre Agassi</Phrase>
+				<point>55</point>
+			</ans1>
+			<ans2>
+				<Phrase>Mats Wilander</Phrase>
+				<point>100</point>
+			</ans2>
+			<ans3>
+				<Phrase>Michael Stich</Phrase>
+				<point>1</point>
+			</ans3>
+			<ans4>
+				<Phrase>Ken Rosewall</Phrase>
+				<point>100</point>
+			</ans4>
+			<ans5>
+				<Phrase>Jan Kodes</Phrase>
+				<point>0</point>
+			</ans5>
+			<ans6>
+				<Phrase>Rod Laver</Phrase>
+				<point>29</point>
+			</ans6>
+			<ans7>
+				<Phrase>Lleyton Hewitt</Phrase>
+				<point>34</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="OutOfSeven">
+		<Title>Wimbledon: Mens' singles winners from 1968 to 2009.</Title>
+		<Description>AT LEAST one of these answers is POINTLESS and AT LEAST one answer is INCORRECT and will score 100</Description>
+		<Category>Sport</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Pat Cash</Phrase>
+				<point>58</point>
+			</ans1>
+			<ans2>
+				<Phrase>Rafael nadal</Phrase>
+				<point>85</point>
+			</ans2>
+			<ans3>
+				<Phrase>Arhtur Ashe</Phrase>
+				<point>10</point>
+			</ans3>
+			<ans4>
+				<Phrase>Ivan Lendl</Phrase>
+				<point>100</point>
+			</ans4>
+			<ans5>
+				<Phrase>John Newcombe</Phrase>
+				<point>6</point>
+			</ans5>
+			<ans6>
+				<Phrase>Stan Smith</Phrase>
+				<point>0</point>
+			</ans6>
+			<ans7>
+				<Phrase>Richard Krajicek</Phrase>
+				<point>0</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="TypeIt">
+		<Title>European Countires</Title>
+		<Description>Any European Country which lies wholly or partly in Europe, that is larger than the UK</Description>
+		<Category>Geography</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Finland</Phrase>
+				<point>5</point>
+			</ans1>
+			<ans2>
+				<Phrase>France</Phrase>
+				<point>95</point>
+			</ans2>
+			<ans3>
+				<Phrase>Germany</Phrase>
+				<point>87</point>
+			</ans3>
+			<ans4>
+				<Phrase>Italy</Phrase>
+				<point>50</point>
+			</ans4>
+			<ans5>
+				<Phrase>Norway</Phrase>
+				<point>22</point>
+			</ans5>
+			<ans6>
+				<Phrase>Poland</Phrase>
+				<point>27</point>
+			</ans6>
+			<ans7>
+				<Phrase>Russia</Phrase>
+				<point>29</point>
+			</ans7>
+			<ans8>
+				<Phrase>Spain</Phrase>
+				<point>83</point>
+			</ans8>
+			<ans9>
+				<Phrase>Sweden</Phrase>
+				<point>23</point>
+			</ans9>
+			<ans10>
+				<Phrase>Turkey</Phrase>
+				<point>16</point>
+			</ans10>
+			<ans11>
+				<Phrase>Ukraine</Phrase>
+				<point>7</point>
+			</ans11>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="TypeIt">
+		<Title>States of the USA</Title>
+		<Description>Any state of the union that begins with the letters O-Z</Description>
+		<Category>Geography</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Ohio</Phrase>
+				<point>39</point>
+			</ans1>
+			<ans2>
+				<Phrase>Oklahoma</Phrase>
+				<point>4</point>
+			</ans2>
+			<ans3>
+				<Phrase>Oregon</Phrase>
+				<point>18</point>
+			</ans3>
+			<ans4>
+				<Phrase>Penneysylvania</Phrase>
+				<point>11</point>
+			</ans4>
+			<ans5>
+				<Phrase>Rhode Island</Phrase>
+				<point>7</point>
+			</ans5>
+			<ans6>
+				<Phrase>South Carolina</Phrase>
+				<point>19</point>
+			</ans6>
+			<ans7>
+				<Phrase>South dakota</Phrase>
+				<point>17</point>
+			</ans7>
+			<ans8>
+				<Phrase>Tennesse</Phrase>
+				<point>15</point>
+			</ans8>
+			<ans9>
+				<Phrase>Texas</Phrase>
+				<point>78</point>
+			</ans9>
+			<ans10>
+				<Phrase>Utah</Phrase>
+				<point>19</point>
+			</ans10>
+			<ans11>
+				<Phrase>Vermount</Phrase>
+				<point>4</point>
+			</ans11>
+			<ans12>
+				<Phrase>Virginia</Phrase>
+				<point>16</point>
+			</ans12>
+			<ans13>
+				<Phrase>Washington</Phrase>
+				<point>51</point>
+			</ans13>
+			<ans14>
+				<Phrase>West Virginia</Phrase>
+				<point>5</point>
+			</ans14>
+			<ans15>
+				<Phrase>Wisconsin</Phrase>
+				<point>4</point>
+			</ans15>
+			<ans16>
+				<Phrase>Wyoming</Phrase>
+				<point>7</point>
+			</ans16>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="TypeIt">
+		<Title>Chemical Elements</Title>
+		<Description>Name any of the 9 chemical elements of the periodic table beginning with 'S', names not symbols</Description>
+		<Category>Chemistry</Category>
+		<Answers>
+			<ans1>
+				<Phrase>Sodium</Phrase>
+				<point>56</point>
+			</ans1>
+			<ans2>
+				<Phrase>Silver</Phrase>
+				<point>51</point>
+			</ans2>
+			<ans3>
+				<Phrase>Sulphur</Phrase>
+				<point>47</point>
+			</ans3>
+			<ans4>
+				<Phrase>Silicon</Phrase>
+				<point>15</point>
+			</ans4>
+			<ans5>
+				<Phrase>Strontium</Phrase>
+				<point>14</point>
+			</ans5>
+			<ans6>
+				<Phrase>Selenium</Phrase>
+				<point>10</point>
+			</ans6>
+			<ans7>
+				<Phrase>Scandium</Phrase>
+				<point>5</point>
+			</ans7>
+			<ans8>
+				<Phrase>Seaborgium</Phrase>
+				<point>0</point>
+			</ans8>
+			<ans9>
+				<Phrase>Samarium</Phrase>
+				<point>0</point>
+			</ans9>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="TypeIt">
+		<Title>Champion's League Winners</Title>
+		<Description>European Football teams that have won the Champion's League 1992-2009</Description>
+		<Category></Category>
+		<Answers>
+			<ans1>
+				<Phrase>Ajax</Phrase>
+				<point>7</point>
+			</ans1>
+			<ans2>
+				<Phrase>Barcelona</Phrase>
+				<point>41</point>
+			</ans2>
+			<ans3>
+				<Phrase>Bayern Munich</Phrase>
+				<point>14</point>
+			</ans3>
+			<ans4>
+				<Phrase>Borussia Dortmund</Phrase>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>Juventus</Phrase>
+				<point>11</point>
+			</ans5>
+			<ans6>
+				<Phrase>Liverpool</Phrase>
+				<point>52</point>
+			</ans6>
+			<ans7>
+				<Phrase>Manchester United</Phrase>
+				<point>62</point>
+			</ans7>
+			<ans8>
+				<Phrase>AC Milan</Phrase>
+				<point>26</point>
+			</ans8>
+			<ans9>
+				<Phrase>Olympique Marseille</Phrase>
+				<point>0</point>
+			</ans9>
+			<ans10>
+				<Phrase>Porto</Phrase>
+				<point>10</point>
+			</ans10>
+			<ans11>
+				<Phrase>Real Madrid</Phrase>
+				<point>45</point>
+			</ans11>
+		</Answers>
+	</Quiz>
+        <Quiz QuizType="Initials">
+		<Title>Alfred Hitchcock</Title>
+		<Description>Can you name the Films Directed by Alfred Hitchcock from 1950 till his death in 1976 from the initials and year</Description>
+		<Category>Movies</Category>
+		<Answers>
+			<ans1>
+				<Phrase>D_ M_ F_ M_ (1954)</Phrase>
+				<Correct>Dial M For Murder</Correct>
+				<point>5</point>
+			</ans1>
+			<ans2>
+				<Phrase>R_ W_ (1954)</Phrase>
+				<Correct>Rear Window</Correct>
+				<point>22</point>
+			</ans2>
+			<ans3>
+				<Phrase>T_ B_ (1963)</Phrase>
+				<Correct>The Birds</Correct>
+				<point>91</point>
+			</ans3>
+			<ans4>
+				<Phrase>P_ (1960)</Phrase>
+				<Correct>Psycho</Correct>
+				<point>63</point>
+			</ans4>
+			<ans5>
+				<Phrase>S_ O_ A_ T_ (1951)</Phrase>
+				<Correct>Strangers On A Train</Correct>
+				<point></point>
+			</ans5>
+			<ans6>
+				<Phrase>T_ M_ W_ K_ T_ M_ (1956)</Phrase>
+				<Correct>The Man Who Knew Too Much</Correct>
+				<point>5</point>
+			</ans6>
+			<ans7>
+				<Phrase>F_ P_ (1976)</Phrase>
+				<Correct>Family Plot</Correct>
+				<point>0</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="Initials">
+		<Title>Prime Ministers Of The UK</Title>
+		<Description>Names of Prime Ministers who held office at any point between 1900- 2000. </Description>
+		<Category>Politics</Category>
+		<Answers>
+			<ans1>
+				<Phrase>T_ B_ (1997- 2007)</Phrase>
+				<Correct>Tony Blair</Correct>
+				<point>94</point>
+			</ans1>
+			<ans2>
+				<Phrase>N_ C_ (1937- 1940)</Phrase>
+				<Correct>Neville Chamberlain</Correct>
+				<point>17</point>
+			</ans2>
+			<ans3>
+				<Phrase>J_ M_ (1990- 1997)</Phrase>
+				<Correct>John Major</Correct>
+				<point>69</point>
+			</ans3>
+			<ans4>
+				<Phrase>A_ B_ L_(1922- 1923)</Phrase>
+				<Correct>Andrew Bonar Law</Correct>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>S_ B_ (1935- 1940)</Phrase>
+				<Correct>Stanley Baldwin</Correct>
+				<point>3</point>
+			</ans5>
+			<ans6>
+				<Phrase>E_ H_ (1970- 1974)</Phrase>
+				<Correct>Edward Heath</Correct>
+				<point>15</point>
+			</ans6>
+			<ans7>
+				<Phrase>H_ W_ (1974- 1976)</Phrase>	
+				<Correct>Howard Wilson</Correct>
+				<point>31</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="Initials">
+		<Title>Prime Ministers Of The UK</Title>
+		<Description>Names of Prime Ministers who held office at any point between 1900- 2000. </Description>
+		<Category>Politics</Category>
+		<Answers>
+			<ans1>
+				<Phrase>R_ M_ (1924 and 1929- 1935)</Phrase>
+				<Correct>Ramsay MacDonald</Correct>
+				<point>6</point>
+			</ans1>
+			<ans2>
+				<Phrase>W_C_ (1940- 1945 and 1951- 1955)</Phrase>
+				<Correct>Winston Churchill</Correct>
+				<point>80</point>
+			</ans2>
+			<ans3>
+				<Phrase>M_ T_ (1979- 1990)</Phrase>
+				<Correct>Margaret Thatcher</Correct>
+				<point>97</point>
+			</ans3>
+			<ans4>
+				<Phrase>A_ J_ B_ (1902- 1905)</Phrase>
+				<Correct>Arthur James Balfour</Correct>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>H_ H_ A_ (1908- 1916)</Phrase>
+				<Correct>Herbert Henry Asquith</Correct>
+				<point>4</point>
+			</ans5>
+			<ans6>
+				<Phrase>H_ C_ B_ (1905- 1908)</Phrase>
+				<Correct>Henry Campbell Bannerman</Correct>
+				<point>2</point>
+			</ans6>
+			<ans7>
+				<Phrase>H_ M_ (1957- 1963)</Phrase>
+				<Correct>Harold MacMillan</Correct>
+				<point>19</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="Initials">
+		<Title>Presidents of the USA </Title>
+		<Description>Men that have served as President of the USA 1900- 2010</Description>
+		<Category>Politics</Category>
+		<Answers>
+			<ans1>
+				<Phrase>G_ B_ S_ (1989- 1993)</Phrase>
+				<Correct>George Bush Senior</Correct>
+				<point>62</point>
+			</ans1>
+			<ans2>
+				<Phrase>G_ F_ (1974- 1977) </Phrase>
+				<Correct>Gerald Ford</Correct>
+				<point>23</point>
+			</ans2>
+			<ans3>
+				<Phrase>R_ R_ (1981- 1989)</Phrase>
+				<Correct>Ronald Regan</Correct>
+				<point>65</point>
+			</ans3>
+			<ans4>
+				<Phrase>W_ M_ (1897- 1901)</Phrase>
+				<Correct>William McKinley</Correct>
+				<point>0</point>
+			</ans4>
+			<ans5>
+				<Phrase>H_ H_ (1929- 1933)</Phrase>
+				<Correct>Herbert Hoover</Correct>
+				<point>13</point>
+			</ans5>
+			<ans6>
+				<Phrase>W_ H_ (1921- 1923)</Phrase>
+				<Correct>Warren Harding</Correct>
+				<point>3</point>
+			</ans6>
+			<ans7>
+				<Phrase>J_ C_ (1977- 1981)</Phrase>
+				<Correct>Jimmy Carter</Correct>
+				<point>49</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="Initials">
+		<Title>Presidents of the USA </Title>
+		<Description>Men that have served as President of the USA 1900- 2010</Description>
+		<Category>Politics</Category>
+		<Answers>
+			<ans1>
+				<Phrase>C_ C_ (1923- 1929)</Phrase>
+				<Correct>Calvin Coolidge</Correct>
+				<point>6</point>
+			</ans1>
+			<ans2>
+				<Phrase>B_ O_ (2009- present)</Phrase>
+				<Correct>Barack Obama</Correct>
+				<point>98</point>
+			</ans2>
+			<ans3>
+				<Phrase>T_ R_ (1901- 1909)</Phrase>
+				<Correct>Theodore Roosevelt</Correct>
+				<point>8</point>
+			</ans3>
+			<ans4>
+				<Phrase>G_ B_ J_ (2001- 2009)</Phrase>
+				<Correct>George Bush Junior</Correct>
+				<point>94</point>
+			</ans4>
+			<ans5>
+				<Phrase>W_ T_ (1909- 1913)</Phrase>
+				<Correct>William Taft</Correct>
+				<point>0</point>
+			</ans5>
+			<ans6>
+				<Phrase>H_ T_ (1945- 1953)</Phrase>
+				<Correct>Harry Truman</Correct>
+				<point>14</point>
+			</ans6>
+			<ans7>
+				<Phrase>B_ C_ (1993- 2001)</Phrase>
+				<Correct>Bill Clinton</Correct>
+				<point>74</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="Initials">
+		<Title>Stephen King</Title>
+		<Description>Novels by Stephen King published in the 1970's and 1980's.</Description>
+		<Category>Literature</Category>
+		<Answers>
+			<ans1>
+				<Phrase>C_ O_ T_ W_ (1983)</Phrase>
+				<Correct>Cycle of the Werewolf</Correct>
+				<point>0</point>
+			</ans1>
+			<ans2>
+				<Phrase>T_ D_ T_ 2: T_ D_ O_ T_ T_ (1987)</Phrase>
+				<Correct>The Dark Tower 2: The Drawing of the Three</Correct>
+				<point>1</point>
+			</ans2>
+			<ans3>
+				<Phrase>I_ (1986)</Phrase>
+				<Correct>It</Correct>
+				<point>39</point>
+			</ans3>
+			<ans4>
+				<Phrase>F_ (1980)</Phrase>
+				<Correct>Firestarter</Correct>
+				<point>5</point>
+			</ans4>
+			<ans5>
+				<Phrase>P_ S_ (1983)</Phrase>
+				<Correct>Pet Sematary</Correct>
+				<point>13</point>
+			</ans5>
+			<ans6>
+				<Phrase>M_ (1987)</Phrase>
+				<Correct>Misery</Correct>
+				<point>16</point>
+			</ans6>
+			<ans7>
+				<Phrase>S_ L_ (1975)</Phrase>
+				<Correct>Salem's Lot</Correct>
+				<point>12</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="Initials">
+		<Title>Bee Gees</Title>
+		<Description>Singles by the Bee Gee's to have reached the Top 10 in the UK.</Description>
+		<Category>Music</Category>
+		<Answers>
+			<ans1>
+				<Phrase>R_ T_ M_ (1972)</Phrase>
+				<Correct>Run to me</Correct>
+				<point>0</point>
+			</ans1>
+			<ans2>
+				<Phrase>S_ A_ (1977)</Phrase>
+				<Correct>Stayin' Alive</Correct>
+				<point>64</point>
+			</ans2>
+			<ans3>
+				<Phrase>S_ L_ (1991)</Phrase>
+				<Correct>Secret Love</Correct>
+				<point>0</point>
+			</ans3>
+			<ans4>
+				<Phrase>N_ F_ (1977)</Phrase>
+				<Correct>Night Fever</Correct>
+				<point>53</point>
+			</ans4>
+			<ans5>
+				<Phrase>H_ D_ I_ Y_ L_ (1977)</Phrase>
+				<Correct>How Deep Is Your Love</Correct>
+				<point>34</point>
+			</ans5>
+			<ans6>
+				<Phrase>T_ M_ H_ (1979)</Phrase>
+				<Correct>Too Much Heaven</Correct>
+				<point>1</point>
+			</ans6>
+			<ans7>
+				<Phrase>A_ (1997)</Phrase>
+				<Correct>Alone</Correct>
+				<point>1</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="FillInTheBlanks">
+		<Title>Andrew Lloyd Webber</Title>
+		<Description>Fill in the blanks of the following musicials COMPOSED by Andrew Lloyd Webber</Description>
+		<Category>Music</Category>
+		<Answers>
+			<ans1>
+				<Phrase>C_T_ </Phrase>
+				<Correct>Cats</Correct>
+				<point>80</point>
+			</ans1>
+			<ans2>
+				<Phrase>E_I_A</Phrase>
+				<Correct>Evita</Correct>
+				<point>28</point>
+			</ans2>
+			<ans3>
+				<Phrase>S_N_E_ B_U_E_A_D</Phrase>
+				<Correct>Sunset Boulevard</Correct>
+				<point>6</point>
+			</ans3>
+			<ans4>
+				<Phrase>T_E P_A_T_M O_ T_E O_E_A</Phrase>
+				<Correct>The Phantom Of The Opera</Correct>
+				<point>76</point>
+			</ans4>
+			<ans5>
+				<Phrase>T_E W_M_N I_ W_I_E</Phrase>
+				<Correct>The Woman In White</Correct>
+				<point>1</point>
+			</ans5>
+			<ans6>
+				<Phrase>S_N_ A_D D_N_E</Phrase>
+				<Correct>Song and Dance</Correct>
+				<point>3</point>
+			</ans6>
+			<ans7>
+				<Phrase>T_L_ M_ O_ A S_N_A_</Phrase>	
+				<Correct>Tell me on a Sunday</Correct>
+				<point>0</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="FillInTheBlanks">
+		<Title>Stephen King</Title>
+		<Description>Novels by Stephen King published in the 1970's and 1980's.</Description>
+		<Category>Literature</Category>
+		<Answers>
+			<ans1>
+				<Phrase>C_R_I_ (1974)</Phrase>
+				<Correct>Carrie</Correct>
+				<point>33</point>
+			</ans1>
+			<ans2>
+				<Phrase>T_E S_I_I_G (1977)</Phrase>
+				<Correct>The Shining</Correct>
+				<point>24</point>
+			</ans2>
+			<ans3>
+				<Phrase>E_E_ O_ T_E D_A_O_ (1987)</Phrase>
+				<Correct>Eyes of the Dragon</Correct>
+				<point>0</point>
+			</ans3>
+			<ans4>
+				<Phrase>T_E D_R_ H_L_ (1989)</Phrase>
+				<Correct>The Dark Half</Correct>
+				<point>2</point>
+			</ans4>
+			<ans5>
+				<Phrase>T_E D_A_ Z_N_ (1979)</Phrase>
+				<Correct>The Dead Zone</Correct>
+				<point>5</point>
+			</ans5>
+			<ans6>
+				<Phrase>T_E D_R_ T_W_R: T_E G_N_L_N_E_ (1982)</Phrase>
+				<Correct>The Dark Tower: The Gunslinger</Correct>
+				<point>1</point>
+			</ans6>
+			<ans7>
+				<Phrase>C_R_S_I_E (1983)</Phrase>
+				<Correct>Christine</Correct>
+				<point>15</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="FillInTheBlanks">
+		<Title>Bee Gees</Title>
+		<Description>Singles by the Bee Gee's to have reached the Top 10 in the UK.</Description>
+		<Category>Music</Category>
+		<Answers>
+			<ans1>
+				<Phrase>F_R_T O_ M_Y (1969)</Phrase>
+				<Correct>First of May</Correct>
+				<point>1</point>
+			</ans1>
+			<ans2>
+				<Phrase>W_R_D (1967)</Phrase>
+				<Correct>World</Correct>
+				<point>3</point>
+			</ans2>
+			<ans3>
+				<Phrase>J_V_ T_L_I_' (1975)</Phrase>
+				<Correct>Jive Talkin'</Correct>
+				<point>38</point>
+			</ans3>
+			<ans4>
+				<Phrase>N_G_T F_V_R (1977)</Phrase>
+				<Correct>Night Fever</Correct>
+				<point>63</point>
+			</ans4>
+			<ans5>
+				<Phrase>D_N'T F_R_E_ T_ R_M_M_E_ (1970)</Phrase>Don't Forget To Remember
+				<point>0</point>
+			</ans5>
+			<ans6>
+				<Phrase>T_A_E_Y (1979)</Phrase>
+				<point>19</point>
+			</ans6>
+			<ans7>
+				<Phrase>H_W D_E_ I_ Y_U_ L_V_ (1977)</Phrase>How Deep is your Love
+				<point>34</point>
+			</ans7>
+		</Answers>
+	</Quiz>
+	<Quiz QuizType="FillInTheBlanks">
+		<Title> </Title>
+		<Description> </Description>
+		<Category> </Category>
+		<Answers>
+			<ans1>
+				<Phrase> </Phrase>
+				<point> </point>
+			</ans1>
+			<ans2>
+				<Phrase> </Phrase>
+				<point> </point>
+			</ans2>
+			<ans3>
+				<Phrase> </Phrase>
+				<point> </point>
+			</ans3>
+			<ans4>
+				<Phrase> </Phrase>
+				<point> </point>
+			</ans4>
+			<ans5>
+				<Phrase> </Phrase>
+				<point> </point>
+			</ans5>
+			<ans6>
+				<Phrase> </Phrase>
+				<point> </point>
+			</ans6>
+			<ans7>
+				<Phrase> </Phrase>
+				<point> </point>
+			</ans7>
 		</Answers>
 	</Quiz>
 </Quiz_Head>

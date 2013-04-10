@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public enum QuizType implements Serializable{
 	OutOfSeven,
-	ImageQuiz,
-	TypeAnswer,
+	Initials,
+	TypeIt,
+	FillInTheBlanks,
 	Other,
 	;
 
