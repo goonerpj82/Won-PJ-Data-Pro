@@ -27,6 +27,7 @@ import com.pointless.message.*;
 public class Client implements Runnable{
 	private InetAddress servAddr;
 	private Socket socket;
+	private String dhKey;
 	private MessageEventListener sel;
 	
 	/* (non-Javadoc)
@@ -62,6 +63,7 @@ public class Client implements Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
 	}
 	
@@ -86,7 +88,7 @@ public class Client implements Runnable{
 
 	/**
 	 * 
-	 * @param mo
+	 * @param mo MessageObject that you want to send
 	 * @throws IOException
 	 */
 	public void sendMessage(MessageObject mo) throws IOException{
@@ -117,6 +119,8 @@ public class Client implements Runnable{
 	 * @throws ClassNotFoundException
 	 */
 	public boolean nameNegotiation(String name) throws IOException, ClassNotFoundException{
+		//sendMessage(new SecurityMessage("", SecurityType.Alice, 3, 7);
+		
 		sendMessage(new FirstMessage(name, FirstType.REQUEST));
 		FirstMessage mo = (FirstMessage) waitMessage();
 		if(mo.getFt().equals(FirstType.CONFIRM)){
@@ -138,6 +142,10 @@ public class Client implements Runnable{
 		sendMessage(new EndMessage("",et));
 		socket.close();
 	}
+	
+	/*
+	 * Listener things
+	 */
 	
 	public void addListener(MessageEventListener sel){
 		this.sel = sel;

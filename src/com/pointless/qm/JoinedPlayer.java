@@ -1,5 +1,13 @@
 package com.pointless.qm;
 
+/**
+ * This class hold information of players.
+ * This class is handled by QuestionMaster class, not Player class
+ * @author Won Lee
+ * @version b032608w
+ * b032608w:	basic done.
+ *
+ */
 public class JoinedPlayer {
 
 	private String name;
@@ -49,6 +57,8 @@ public class JoinedPlayer {
 		this.score = score;
 	}
 	
-	
+	public void addScore(int addedScore){
+		score += addedScore;
+	}
 
 }

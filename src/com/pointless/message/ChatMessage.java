@@ -4,7 +4,8 @@ package com.pointless.message;
  * This class encapsulate necessary information for Chat
  * 
  * @author Won Lee
- * @version 0.1 b032414w
+ * @version 0.5 b032608w
+ * b032608w:	variable "toAll" added for broadcast chat
  *
  */
 public class ChatMessage extends MessageObject {

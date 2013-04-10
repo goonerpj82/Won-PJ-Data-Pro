@@ -4,16 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import com.pointless.io.Client;
-import com.pointless.message.ChatMessage;
-import com.pointless.message.EndType;
-import com.pointless.message.MessageEventListener;
-import com.pointless.message.MessageObject;
-import com.pointless.message.PlayerMessage;
-import com.pointless.qm.Team;
-import com.pointless.quiz.Answer;
+import com.pointless.message.*;
 import com.pointless.quiz.Quiz;
 
 /**
@@ -21,6 +14,7 @@ import com.pointless.quiz.Quiz;
  * @author Won
  * @version 0.2 b032413w
  * b032413w:	Basic of Joining Game Protocol Done
+ * b040816w:	Chat logging bug was fixed
  *
  */
 public class Player implements Serializable{
@@ -193,10 +187,14 @@ public class Player implements Serializable{
 	}
 	
 	private void handleMessage(MessageObject meob) throws IOException{
+		//TODO create ENUM that tells what should be updated on GUI
 		if(meob instanceof ChatMessage){
 			chatReceived((ChatMessage) meob);
 		}else if(meob instanceof PlayerMessage){
 			playerInfoReceived((PlayerMessage) meob);
+		}else if(meob instanceof ErrorMessage){
+			handleErrorMessage((ErrorMessage) meob);
+			meob = new ChatMessage("",false,"","");
 		}
 		messageReceived(meob);
 	}
@@ -206,12 +204,14 @@ public class Player implements Serializable{
 	 */
 	
 	private void chatReceived(ChatMessage chme){
-		String tmp = "From <" + chme.getSrceName() + "> : ";
-		tmp += chme.getText() + "\n";
-		chatLog += tmp;
-		if(chatLog.length() > chatMax){
-			int exceed = chatLog.length() - chatMax;
-			chatLog = chatLog.substring(exceed, chatLog.length());
+		if(!chme.getSrceName().equals(name)){
+			String tmp = "From <" + chme.getSrceName() + "> : ";
+			tmp += chme.getText() + "\n";
+			chatLog += tmp;
+			if(chatLog.length() > chatMax){
+				int exceed = chatLog.length() - chatMax;
+				chatLog = chatLog.substring(exceed, chatLog.length());
+			}
 		}
 	}
 	
@@ -223,6 +223,18 @@ public class Player implements Serializable{
 		}
 		otherPlayers = names;
 		System.out.println(otherPlayers);
+	}
+	
+	private void handleErrorMessage(ErrorMessage erme){
+		ErrorType et = erme.getEt();
+		switch(et){
+		case CHAT_SRCE_DENIED:
+			addTextToChatLog("You are not allowed chatting for now");
+		break;
+		case CHAT_DEST_DENIED: 
+			addTextToChatLog("Destination is not allowed chatting for now");
+		break;
+		}
 	}
 	
 	/*

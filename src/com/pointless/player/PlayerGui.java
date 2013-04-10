@@ -47,6 +47,8 @@ import javax.swing.JCheckBox;
  * Encapsulate chat from ChatPane, playerAnswer from QuestionPane for QuestionMasterGui
  * which means encapsulate them for QuestionMaster class.
  * @author Won
+ * @version 0.3 b032608w
+ * b032608w:	Integrate chatPanel into PlayerGui.
  *
  */
 public class PlayerGui extends JFrame {
@@ -249,10 +251,8 @@ public class PlayerGui extends JFrame {
 	
 	public void updateDisplay(MessageObject mo){
 		if(mo instanceof PlayerMessage){
-			PlayerMessage pm = (PlayerMessage) mo;
 			destBox.setModel(new DefaultComboBoxModel(player.getOtherPlayers().toArray()));
 		}if(mo instanceof ChatMessage){
-			ChatMessage chme = (ChatMessage) mo;
 			textArea.setText(player.getChatLog());
 		}
 	}

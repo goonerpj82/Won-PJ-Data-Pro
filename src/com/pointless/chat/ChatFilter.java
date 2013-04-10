@@ -4,29 +4,44 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.pointless.message.ChatMessage;
+import com.pointless.message.ErrorType;
 import com.pointless.player.Player;
 
 public class ChatFilter {
-	private Map<Player, ChatFilterType> sourceFilter;
-	private Map<Player, ChatFilterType> destinationFilter;
+	private Map<String, ChatFilterType> filter;
 
 	public ChatFilter() {
-		sourceFilter = new HashMap<Player, ChatFilterType>();
-		destinationFilter = new HashMap<Player, ChatFilterType>();
+		filter = new HashMap<>();
 	}
 
 	
 	public boolean verifyChat(ChatMessage chme) throws ChatIsLimitedException{
+		ChatFilterType cft = filter.get(chme.getSrceName());
+		if(cft == ChatFilterType.Deny){
+			return false;
+		}
+		cft = filter.get(chme.getDestName());
+		if(cft == ChatFilterType.Deny){
+			return false;
+		}
 		return true;
 	}
 	
-	public void changeSourceFilter(Player player, ChatFilterType cft){
-		sourceFilter.put(player, cft);
-		System.out.println("Message from " + player.getName() + " is now "+sourceFilter.get(player));
+	/**
+	 * Call this method only after verifyChat and get false from it.
+	 * @param chme
+	 * @return
+	 */
+	public ErrorType checkError(ChatMessage chme){
+		if(filter.get(chme.getSrceName()).equals(ChatFilterType.Deny)){
+			return ErrorType.CHAT_SRCE_DENIED;
+		}else{
+			return ErrorType.CHAT_DEST_DENIED;
+		}
 	}
-
-	public void changeDestinationFilter(Player player, ChatFilterType cft){
-		destinationFilter.put(player, cft);
-		System.out.println("Message to " + player.getName() + " is now "+destinationFilter.get(player));
+	
+	public void changeFilter(String name, ChatFilterType cft){
+		filter.put(name, cft);
+		System.out.println("Message from " + name + " is now "+filter.get(name));
 	}
 }
