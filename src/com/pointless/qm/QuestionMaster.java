@@ -32,9 +32,11 @@ import com.pointless.quiz.Quiz;
  * This class is to process game and control players
  * GUI is not necessary but it might be added in ver.2
  * @author Won Lee
- * @version 0.2 b032608w
+ * @version 0.2 b041013w
  * b032413w:	Basic of Joining Game Protocol done.
  * b032608w:	Handling chat better, unicast chat is available.
+ * b041013w:	Add codes that send quiz to player and handles answer from player.
+ * 				Plus codes to process the game (next turn, next round, next quiz).
  *
  */
 public class QuestionMaster implements Runnable{
@@ -219,6 +221,9 @@ public class QuestionMaster implements Runnable{
 		}else if(mo instanceof ChatMessage){
 			ChatMessage chme = (ChatMessage) mo;
 			chat(chme);
+		}else if(mo instanceof AnswerMessage){
+			System.out.println("Get Answer from Player");
+			getAnswerFromPlayer((AnswerMessage) mo);
 		}else if(mo instanceof EndMessage){
 			System.out.println("Closing Notification");
 			playerDisconnected((EndMessage) mo);
@@ -327,13 +332,6 @@ public class QuestionMaster implements Runnable{
 	 * Codes for QuizMessage
 	 */
 	
-	private void nextQuiz(){
-		Quiz quiz = null;
-		//quiz = quizList.getByRound(currentRound);
-		//currentQuiz = quiz;
-		//sendQuizMessage(quiz);
-	}
-	
 	/**
 	 * 
 	 * @param quiz
@@ -362,6 +360,8 @@ public class QuestionMaster implements Runnable{
 			int score = currentQuiz.getAnswers().get(am.getIndex()).getPoint();
 			players.get(currentPlayer).addScore(score);
 			nextPlayer();
+		}else{
+			System.out.println("Invalid user send answer");
 		}
 	}
 	
@@ -379,10 +379,7 @@ public class QuestionMaster implements Runnable{
 		Collections.shuffle(players);
 		sendPlayerStatus();
 		chat(new ChatMessage("QM", true, "", "Game is started with these players: " + players.toArray().toString()));
-		//TODO get first question
-		//quiz = quizList.getByRound(currentRound);
-		//currentQuiz = quiz;
-		//sendQuizMessage(quiz);
+		nextQuiz();
 	}
 	
 	/**
@@ -397,6 +394,27 @@ public class QuestionMaster implements Runnable{
 		}
 		sendPlayerStatus();
 		nextQuiz();
+	}
+	
+	/**
+	 * Pick random quiz that is appropriate for the round.
+	 */
+	private void nextQuiz(){
+		//TODO create quizlist propery
+		//quizList.deleteQuiz(quiz); //This is to avoid to get the same quiz from the list next time.
+		//quiz = quizList.getByRound(currentRound);
+		//currentQuiz = quiz;
+		//sendQuizMessage(quiz);
+	}
+	
+	/**
+	 * Every end of turn (means every player answered), list of players will be sorted by thier score
+	 * And some player will be removed from the game.
+	 * @throws IOException
+	 */
+	private void nextTurn() throws IOException{
+		Collections.sort(players, new SortByScore());
+		whoWillBeRemoved();
 	}
 	
 	/**
@@ -426,16 +444,6 @@ public class QuestionMaster implements Runnable{
 		players.remove(jp);
 	}
 
-	/**
-	 * Every end of turn (means every player answered), list of players will be sorted by thier score
-	 * And some player will be removed from the game.
-	 * @throws IOException
-	 */
-	private void nextTurn() throws IOException{
-		Collections.sort(players, new SortByScore());
-		whoWillBeRemoved();
-	}
-	
 	/**
 	 * This is beta method. Algorithm to determine who should be removed is not completed yet.
 	 * the goal is that at the last round, there is only 2 players left no matter 
