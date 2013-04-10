@@ -53,7 +53,7 @@ public class QuestionLoader {
 	    		}
 	    	}
 		}
-		Collections.sort(quizes);
+		Collections.sort(quizes, new QuizComparator());
 		return quizes;
 	}
 	
