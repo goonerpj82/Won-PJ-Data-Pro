@@ -1,6 +1,8 @@
 package com.pointless.quiz;
 
-public class Answer {
+import java.io.Serializable;
+
+public class Answer implements Serializable{
 	//ID will be used when we separate Player and Questionmaster
 	//When they communicate over TCP
 	private static int idBase = 0;

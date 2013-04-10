@@ -196,6 +196,7 @@ public class PlayerGui extends JFrame {
 		loginPane.add(lblQuizmasterAddress);
 		
 		txfQm = new JTextField();
+		txfQm.setText("127.0.0.1");
 		loginPane.add(txfQm);
 		txfQm.setColumns(10);
 		

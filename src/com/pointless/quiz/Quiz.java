@@ -1,8 +1,9 @@
 package com.pointless.quiz;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Quiz implements Comparable{
+public abstract class Quiz implements Serializable{
 	
 	protected static int idBase = 0;
 	protected int id;

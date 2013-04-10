@@ -192,6 +192,9 @@ public class Player implements Serializable{
 			chatReceived((ChatMessage) meob);
 		}else if(meob instanceof PlayerMessage){
 			playerInfoReceived((PlayerMessage) meob);
+		}else if(meob instanceof QuizMessage){
+			System.out.println("Quiz from Question Master");
+			sendMessage(new AnswerMessage(name, AnswerType.ANSWER, 0));
 		}else if(meob instanceof ErrorMessage){
 			handleErrorMessage((ErrorMessage) meob);
 			meob = new ChatMessage("",false,"","");

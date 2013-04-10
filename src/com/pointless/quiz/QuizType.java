@@ -1,6 +1,8 @@
 package com.pointless.quiz;
 
-public enum QuizType {
+import java.io.Serializable;
+
+public enum QuizType implements Serializable{
 	OutOfSeven,
 	ImageQuiz,
 	TypeAnswer,

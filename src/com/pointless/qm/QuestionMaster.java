@@ -103,9 +103,6 @@ public class QuestionMaster implements Runnable{
 					});
 					Thread thread = new Thread(newConnection);
 					thread.start();
-					if(players.size() > 4){
-						startGame();
-					}
 				}
 			}
 		} catch (IOException e) {
@@ -192,6 +189,11 @@ public class QuestionMaster implements Runnable{
 	 * Codes for sending Message and dealing with received Message
 	 */
 	
+	/**
+	 * 
+	 * @param mo
+	 * @throws IOException
+	 */
 	public void sendMessageToAll(MessageObject mo) throws IOException{
 		Collection clients = clientMap.values();
 		for(Iterator i = clients.iterator(); i.hasNext();){
@@ -268,6 +270,9 @@ public class QuestionMaster implements Runnable{
 			sendMessage(key, new FirstMessage("QuestionMaster",FirstType.CONFIRM));
 			//Send all player information to everyone
 			sendPlayerStatus();
+			if(players.size() >= 4){
+				startGame();
+			}
 		}else{
 			sendMessage(key, new FirstMessage("QuestionMaster",FirstType.REJECT));
 		}
@@ -398,13 +403,16 @@ public class QuestionMaster implements Runnable{
 	
 	/**
 	 * Pick random quiz that is appropriate for the round.
+	 * @throws IOException 
 	 */
-	private void nextQuiz(){
+	private void nextQuiz() throws IOException{
 		//TODO create quizlist propery
 		//quizList.deleteQuiz(quiz); //This is to avoid to get the same quiz from the list next time.
 		//quiz = quizList.getByRound(currentRound);
+		Quiz quiz = quizList.get(0);
+		currentQuiz = quiz;
 		//currentQuiz = quiz;
-		//sendQuizMessage(quiz);
+		sendQuizMessage(quiz);
 	}
 	
 	/**

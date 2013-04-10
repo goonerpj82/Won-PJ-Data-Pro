@@ -106,13 +106,17 @@ public class QuestionLoader {
 			quiz = new OutOfSeven(title, desc, category, ansList);
 			System.out.println("outOfSeven Created");
 			break;
-		case ImageQuiz: 
-			String imgPath = element.getChildTextTrim("Image");
+			/*
+		case TypeIt: 
 			quiz = null;
 			break;
-		case TypeAnswer: 
-			quiz = null;
+		case Initials:
+			;
 			break;
+		case FillInTheBlank:
+			;
+			break;
+			*/
 		case Other:
 			quiz = null;
 			break;
@@ -131,7 +135,9 @@ public class QuestionLoader {
 		List<Answer> list = new ArrayList<Answer>();
 		for(Element element: elements){
 			String phrase = element.getChildTextTrim("Phrase");
+			String correct = element.getChildTextTrim("Correct");
 			int score = Integer.valueOf(element.getChildText("point").trim());
+			//list.add(new Answer(phrase, correct, score));
 			list.add(new Answer(phrase, score));
 			System.out.println(phrase+score);
 		}
