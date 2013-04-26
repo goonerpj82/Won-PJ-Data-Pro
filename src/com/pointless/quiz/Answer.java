@@ -8,11 +8,13 @@ public class Answer implements Serializable{
 	private static int idBase = 0;
 	private int id;
 	private String phrase;
+	private String correct;
 	private int point;
 
-	public Answer(String phrase, int point) {
+	public Answer(String phrase, String correct, int point) {
 		id = ++idBase;
 		this.phrase = phrase;
+		this.correct = correct;
 		this.point = point;
 	}
 
@@ -29,7 +31,14 @@ public class Answer implements Serializable{
 	public void setPhrase(String phrase) {
 		this.phrase = phrase;
 	}
+	
+	public String getCorrect(){
+		return correct;
+	}
 
+	public void setCorrect(){
+		this.correct = correct;
+	}
 	/**
 	 * @return the point
 	 */

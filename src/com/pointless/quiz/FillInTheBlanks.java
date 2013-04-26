@@ -16,6 +16,4 @@ public class FillInTheBlanks extends Quiz {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 }
